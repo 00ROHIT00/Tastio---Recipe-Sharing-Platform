@@ -1,0 +1,84 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="images/x-icon" href="./assets/favicon/favicon.ico">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+
+    <title>TASTiO! | Homepage</title>
+    <link rel="stylesheet" href="{%static '/styles.css' %}">
+  </head>
+  <body>
+    <ul class="nav custom">
+      <li class="nav-item">
+        <a class="nav-link active tastio-navbar" href="{%url 'index' %}">TASTiO!</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fa-solid fa-house"></i> Home</i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#find_more"><i class="fa-solid fa-address-card"></i> About Us</i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fa-solid fa-bowl-food"></i> Recipes</a>
+      </li>
+      <li class="nav-item ml-auto">
+        <a class="nav-link" href="{% url 'loginView' %}"><i class="fa-solid fa-user"></i> Log In / Sign Up</a>
+      </li>
+    </ul>
+    <section class="homePage">
+
+      <div class="container-fluid">
+        <div class="tastio-content">
+          <div>
+            <h1 class="tastio-intro">TASTiO!</h1>
+            <p class="tastio-subParagraph">Your Go-To Recipe Sharing Platform</p>
+            <a href="#find_more" class="btn"><button>Find More!</button></a>
+            <a href="" class="btn"><button>See Recipes</button></a>
+          </div>
+          <img src="{%static '/images/plate-2.png' %}" class="intro-image" alt="A Plate of Salad!">
+        </div> 
+      </div>
+
+    </section>
+  <section id="find_more">
+    <div class="container-fluid container2">
+      <h1 class="tastio-intro">TASTiO!</h1>
+      <p class="aboutUs-para">At <b>TASTiO</b>, we believe that the best recipes are meant to be shared. Our platform is designed for food lovers of all skill levels, providing a space where you can connect with fellow culinary enthusiasts. Whether you’re looking to showcase your latest kitchen creation or seeking inspiration for your next meal, <b>TASTiO</b> has you covered. Our community-driven approach ensures that every recipe tells a story, from family secrets to innovative twists on classic dishes. Join us today to explore a world of flavors, share your passion, and make cooking a little more exciting—one recipe at a time.</p>
+      
+      <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+              <img class="d-block w-100" src="{%static '/images/carousel -1.jpg' %}" alt="First slide" title="Plate of Salad">
+            
+          </div>
+          <div class="carousel-item">
+              <img class="d-block w-100" src="{%static '/images/carousel -2.jpg' %}" alt="Second slide" title="">
+            
+          </div>
+          <div class="carousel-item">
+              <img class="d-block w-100" src="{%static '/images/carousel -3.jpg' %}" alt="Third slide" title="Plate of Salad">
+          
+          </div>
+        </div>
+      </div>
+      
+      
+    
+  </section>
+    
+    <!-- FONT AWESOME -->
+    <script src="https://kit.fontawesome.com/ac8010ba48.js" crossorigin="anonymous"></script> 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  </body>
+</html>
