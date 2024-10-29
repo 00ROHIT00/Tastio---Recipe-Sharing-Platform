@@ -34,7 +34,7 @@
     <div class="container-fluid">
       <div class="registerBox">
         <h1>Register</h1> <br>
-        <form method="post" action="">
+        <form method="POST" action="{% url 'register' %}">
           {% csrf_token %}
           <input type="text" name="name" placeholder="Name"> <br> <br>
 
