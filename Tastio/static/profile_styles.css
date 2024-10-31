@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root{
+  --background-color : #E7E393 !important;
+  --gradient-color : #8B815D;
+  --text-color : #2E1F27 !important;
+  --navbar-color : #775065;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  user-select: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  -webkit-scroll-behaviour : smooth;
+}
+
+body, html {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.custom{
+  background-color: var(--background-color);
+  border-bottom: 1px solid black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+.custom a{
+  font-family: "Poppins", sans-serif;
+  color: var(--text-color); 
+
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+}
+
+.custom a:hover{
+  transform: scale(115%);
+  -webkit-transform: scale(115%);
+  -moz-transform: scale(115%);
+  -ms-transform: scale(115%);
+  -o-transform: scale(115%);
+  color : var(--navbar-color);
+}
+
+
+.tastio-navbar{
+  font-weight: 1000;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+}
+
+.tastio-navbar:hover{
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+}
+.logOut{
+  color : red;
+}
+
+.container-fluid {
+  background: var(--background-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  max-width: 100%;
+  padding-top: 80px; /* Space from navbar */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center contents horizontally */
+}
+
+.ProfileInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.userImage {
+  width: 95vw; /* Adds spacing on left and right */
+  height: 30vh;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 3px solid black;
+  margin-bottom: 15px;
+}
+
+.userImage img{
+  width : 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.greeting{
+  font-weight: 700;
+}
+
+.userDetails{
+  height : 48vh;
+  width : 95vw;
+  /* border : black 2px solid; */
+  display: flex;
+  justify-content: space-between;
+  padding : 10px;
+}
+.left, .right{
+  /* border: lime 2px solid; */
+}

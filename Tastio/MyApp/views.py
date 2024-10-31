@@ -13,6 +13,8 @@ def loginView(request):
 def registerView(request):
   return render(request, 'register.html')
 
+def profileView(request):
+  return render(request, 'profile.html')
 
 def register_user(request):
     if request.method == 'POST':
