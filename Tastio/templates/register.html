@@ -37,7 +37,11 @@
         <h1>Register</h1> <br>
         <form method="POST" action="{% url 'register' %}">
           {% csrf_token %}
-          <input type="text" name="name" placeholder="Name"> <br> <br>
+          <input type="text" name="firstName" placeholder="First Name"> <br> <br>
+
+          <input type="text" name="lastName" placeholder="Last Name"> <br> <br>
+
+          <input type="text" name="email" placeholder="Email"> <br> <br>
 
           <input type="text" name="username" placeholder="Username"><br> <br>
 
@@ -50,6 +54,18 @@
         <br> 
         <a href="{% url 'loginView'%}" class="alreadyUserBtn">Already A User? Sign In here!</a>
       </div>
+
+
+      {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+
+
     </div>
 
     <!-- Optional JavaScript -->

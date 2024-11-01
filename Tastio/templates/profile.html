@@ -36,16 +36,16 @@
         <div class="userImage">
           <img src="{%static '/images/userPic.jpg' %}">
         </div>
-        <h1 class="greeting">Hello, Rohit!</h1>
+        <h1 class="greeting">Hello, {{ user.first_name }}!</h1>
         <div class="userDetails">
           <div class="left">
             <h3>Account Details</h3> <br>
-            <p><i class="fa-solid fa-user"></i>       <b>First Name</b>: Rohit</p> 
-            <p><i class="fa-regular fa-user"></i>       <b>Last Name</b>: Rajesh</p>
-            <p><i class="fa-solid fa-signature"></i>  <b>Username</b> : rohith</p>
-            <p><i class="fa-solid fa-envelope"></i>    <b>Email</b>: rohitrajesh@gmail.com</p>
-            <p><i class="fa-solid fa-file-invoice"></i>    <b>Account Created</b> : 01-09-2003</p>
-            
+            <p><i class="fa-solid fa-user"></i>       <b>First Name</b>: {{ user.first_name }}</p> 
+            <p><i class="fa-regular fa-user"></i>       <b>Last Name</b>: {{ user.last_name }}</p>
+            <p><i class="fa-solid fa-signature"></i>  <b>Username</b> : {{ user.username }}</p>
+            <p><i class="fa-solid fa-envelope"></i>    <b>Email</b>: {{ user.email }}</p>
+            <p><i class="fa-solid fa-calendar-days"></i>    <b>Account Created</b> : {{ user.date_joined|date:"Y-m-d" }}</p>
+
           </div>
           <div class="right">
             <h3>Liked Recipes</h3>
