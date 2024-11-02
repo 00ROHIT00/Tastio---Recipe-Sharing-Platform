@@ -17,6 +17,12 @@ def registerView(request):
 def profileView(request):
   return render(request, 'profile.html', {'user': request.user})
 
+def forgotPasswordView(request):
+   return render(request, 'forgotPass.html')
+
+def OTPView(request):
+   return render(request, 'otp.html')
+
 def register_user(request):
     if request.method == 'POST':
         username = request.POST['username']
