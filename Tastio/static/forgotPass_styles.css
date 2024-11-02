@@ -127,7 +127,7 @@
   color : white;
 }
 
-.email, .submitBtn {
+.email, .submitBtn, .username, .clearBtn {
   background: transparent;
   border-radius: 5px;
   outline: none;
@@ -137,4 +137,17 @@
   text-align: center;
   margin-bottom: 7px;
   box-sizing: border-box;
+}
+
+.clearBtn{
+  background: rgb(249, 170, 170);
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+}
+
+.clearBtn:hover{
+  background : rgb(235, 116, 116);
 }

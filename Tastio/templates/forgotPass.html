@@ -38,12 +38,18 @@
         <h3>Forgot Password?</h3>
         <p>Having trouble logging into your account?</p>
         <p><b>Enter your email to confirm it's actually you</b></p>
-        <form method="POST" action="">
+        <form method="POST" action="{% url 'forgot_password' %}">
           {% csrf_token %}
-          <input type="email" name="email" class="email" placeholder="Enter Your Email">
+          <input type="text" name="username" class="username" placeholder="Enter Your Username" required>
+          <input type="email" name="email" class="email" placeholder="Enter Your Email" required>
           <button type="submit" class="submitBtn">Get OTP</button>
-        </form>
-        <br>
+          <button type="reset" class="clearBtn">Clear</button>
+        </form> 
+        {% if messages %}
+    {% for message in messages %}
+        <p style="color:red;">{{ message }}</p>
+    {% endfor %}
+{% endif %}
         <p>A unique OTP will be sent to your EMAIL id with the information on how to reset your password. <br><b>DO NOT SHARE THE OTP WITH ANYONE</b></p>
       </div>
 
