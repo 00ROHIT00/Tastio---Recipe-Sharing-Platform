@@ -27,6 +27,9 @@ def forgotPasswordView(request):
 def resetView(request):
    return render(request, 'reset.html')
 
+def recipeView(request):
+    return render(request, 'recipes.html')
+
 
 
 
