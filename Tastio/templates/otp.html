@@ -38,15 +38,15 @@
         <h3>Enter OTP</h3>
         <p>We've sent you an email with a unique OTP</p>
         <p><b>Enter the OTP to reset the password</b></p>
-        <form method="POST" action="" onsubmit="concatenateOTP(event)">
+        <form method="POST" action="{% url 'otp_verification' %}" onsubmit="concatenateOTP(event)">
           {% csrf_token %}
           <div class="OTPBox">
-            <input type="number" name="OTP" class="OTP" placeholder="">
-            <input type="number" name="OTP" class="OTP" placeholder="">
-            <input type="number" name="OTP" class="OTP" placeholder="">
-            <input type="number" name="OTP" class="OTP" placeholder="">
-            <input type="number" name="OTP" class="OTP" placeholder=" ">
-            <input type="number" name="OTP" class="OTP" placeholder="">
+            <input type="text" name="OTP1" class="OTP" maxlength="1" oninput="moveToNext(this, 'OTP2')">
+            <input type="text" name="OTP2" class="OTP" maxlength="1" oninput="moveToNext(this, 'OTP3')">
+            <input type="text" name="OTP3" class="OTP" maxlength="1" oninput="moveToNext(this, 'OTP4')">
+            <input type="text" name="OTP4" class="OTP" maxlength="1" oninput="moveToNext(this, 'OTP5')">
+            <input type="text" name="OTP5" class="OTP" maxlength="1" oninput="moveToNext(this, 'OTP6')">
+            <input type="text" name="OTP6" class="OTP" maxlength="1">
           </div>
           <input type="hidden" name="otp" id="fullOTP">
           <button type="submit" class="submitBtn">Submit OTP</button>
@@ -69,24 +69,14 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
  <script>
-  function moveToNext(current, nextIndex) {
-    if (current.value.length >= current.maxLength) {
-      document.getElementsByClassName('OTP')[nextIndex]?.focus();
-    }
-  }
-
   function concatenateOTP(event) {
-    event.preventDefault();
-
-    const otpElements = document.getElementsByClassName('OTP');
-    let otp = '';
-    Array.from(otpElements).forEach(input => otp += input.value);
-
-
-    document.getElementById('fullOTP').value = otp;
-
-    console.log("Full OTP: ", otp);
+      event.preventDefault();
+      const otpInputs = document.querySelectorAll('.OTP');
+      let fullOtp = '';
+      otpInputs.forEach(input => fullOtp += input.value);
+      document.getElementById('fullOTP').value = fullOtp;
+      document.querySelector('form').submit();
   }
-</script>
+  </script>
 </body>
 </html>

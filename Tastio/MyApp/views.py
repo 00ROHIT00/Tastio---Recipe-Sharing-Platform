@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 import random
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 def index(request):
@@ -23,22 +24,11 @@ def profileView(request):
 def forgotPasswordView(request):
    return render(request, 'forgotPass.html')
 
-# def OTPView(request):
-#    return render(request, 'otp.html')
+def resetView(request):
+   return render(request, 'reset.html')
 
-def OTPView(request):
-    if request.method == 'POST':
-        entered_otp = request.POST.get('otp')
-        stored_otp = request.session.get('otp')
 
-        if str(entered_otp) == str(stored_otp):
-            messages.success(request, "OTP verified successfully!")
-            # Proceed to reset password or whatever action you want
-            return redirect('some_reset_password_view')  # Replace with your desired view
-        else:
-            messages.error(request, "Invalid OTP. Please try again.")
 
-    return render(request, 'otp.html')
 
 def register_user(request):
     if request.method == 'POST':
@@ -110,16 +100,53 @@ def forgot_password(request):
             
             # Send OTP to the user's email
             send_mail(
-                'Your OTP Code',
-                f'Your OTP code is: {otp}',
+                'TASTIO! | Reset Password',
+                f'Hey {username}, \nThis is your OTP code for resetting the password: {otp}',
                 settings.DEFAULT_FROM_EMAIL,
                 [email],
                 fail_silently=False,
             )
             
-            return redirect('otp_page')  # Redirect to OTP page
+            return redirect('otp_verification')  # Redirect to OTP page
 
         except User.DoesNotExist:
             messages.error(request, 'Invalid username or email. Please try again.')
 
     return render(request, 'forgotPass.html')
+
+def otp_verification(request):
+    if request.method == 'POST':
+        otp = request.POST.get('otp')
+        session_otp = str(request.session.get('otp', ''))
+        
+        if otp == session_otp:
+            return redirect('reset_password')
+        else:
+            messages.error(request, "Incorrect OTP. Please try again.")
+            return redirect('otp_verification')  # Stay on the OTP page if incorrect
+
+    return render(request, 'otp.html')
+
+def reset_password(request):
+    if request.method == 'POST':
+        username = request.session.get('username')  # Get username from session
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('ConfirmPassword')
+
+        if password == confirm_password:
+            try:
+                user = User.objects.get(username=username)
+                user.password = make_password(password)
+                user.save()
+                messages.success(request, "Password reset successful. Please log in with your new password.")
+                return redirect('loginView')
+            except User.DoesNotExist:
+                messages.error(request, "User does not exist.")
+        else:
+            messages.error(request, "Passwords do not match.")
+            
+    return render(request, 'reset.html')
+    
+
+    
+
