@@ -17,25 +17,29 @@
   <body>
     <ul class="nav custom">
       <li class="nav-item">
-        <a class="nav-link active tastio-navbar" href="{% url 'index' %}">TASTiO!</a>
+        <a class="nav-link active tastio-navbar" href="{%url 'index' %}">TASTiO!</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'index' %}"><i class="fa-solid fa-house"></i> Home</i></a>
+        <a class="nav-link" href="#"><i class="fa-solid fa-house"></i> Home</i></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'index' %}#find_more"><i class="fa-solid fa-address-card"></i> About Us</i></a>
+        <a class="nav-link" href="#find_more"><i class="fa-solid fa-address-card"></i> About Us</i></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'recipeView'%}"><i class="fa-solid fa-bowl-food"></i> Recipes</a>
       </li>
       <li class="nav-item ml-auto">
-        <a class="nav-link" href="{% url 'registerView'%}"><i class="fa-solid fa-user"></i> Log In / Sign Up</a>
+        {% if user.is_authenticated %}
+      <a class="nav-link" href="{% url 'logout' %}"><i class="fa-solid fa-user"></i> Log Out</a>
+    {% else %}
+      <a class="nav-link" href="{% url 'loginView' %}"><i class="fa-solid fa-user"></i> Log In / Sign Up</a>
+    {% endif %}
       </li>
     </ul>
     <div class="container-fluid">
       <div class="signInBox">
         <h1>Log In</h1>
-        <form method="post" action="">
+        <form method="post" action="" autocomplete="off">
           {% csrf_token %}
           <input type="text" name="username" placeholder="Username" required> 
           <input type="password" name="password" placeholder="Password" required> <br> 

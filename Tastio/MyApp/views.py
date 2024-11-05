@@ -7,6 +7,7 @@ import random
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import logout
 
 # Create your views here.
 def index(request):
@@ -29,6 +30,10 @@ def resetView(request):
 
 def recipeView(request):
     return render(request, 'recipes.html')
+
+def recipeDetails(request):
+    return  render(request, 'recipeDetails.html')
+
 
 
 
@@ -104,7 +109,8 @@ def forgot_password(request):
             # Send OTP to the user's email
             send_mail(
                 'TASTIO! | Reset Password',
-                f'Hey {username}, \nThis is your OTP code for resetting the password: {otp}',
+                f'Hey {username}, \nThis is your OTP code for resetting the password: {otp}.\n Thanks for using TASTiO!',
+
                 settings.DEFAULT_FROM_EMAIL,
                 [email],
                 fail_silently=False,
@@ -151,5 +157,7 @@ def reset_password(request):
     return render(request, 'reset.html')
     
 
-    
-
+def custom_logout(request):
+    logout(request)  # Log out the user
+    messages.success(request, "You have been logged out successfully.")  # Add a success message
+    return redirect('index')
