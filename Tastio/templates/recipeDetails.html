@@ -30,6 +30,9 @@
     <li class="nav-item ml-auto">
       {% if user.is_authenticated %}
       <li class="nav-item">
+        <a class="nav-link" href="{% url 'create'%}"><i class="fa-solid fa-circle-plus"></i> Create Recipe </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'profileView'%}"><i class="fa-solid fa-user"></i> {{ user.first_name }} </a>
       </li>
     <a class="nav-link space" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
@@ -41,7 +44,6 @@
 
   <section id="firstPage">
     <div class="container-fluid">
-      {% if user.is_authenticated %}
         <div class="recipeImageBox">
           <div class="recipeImage">
             <img src="{% static '/images/dosa.jpg' %}">
@@ -128,12 +130,6 @@
             </div>
           </div>
         </div>
-      {% else %}
-        <div class="container-fluid container2" role="alert">
-          <h4>You need to sign in to access this page.</h4>
-          <a href="{% url 'loginView' %}" class="else-btn"><i class="fa-solid fa-user"></i> Sign In</a>
-        </div>
-      {% endif %}
     </div>
   </section>
 

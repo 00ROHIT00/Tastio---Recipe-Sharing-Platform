@@ -29,9 +29,12 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'recipeView'%}"><i class="fa-solid fa-bowl-food"></i> Recipes</a>
       </li>
-
+  
       <li class="nav-item ml-auto">
         {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'create'%}"><i class="fa-solid fa-circle-plus"></i> Create Recipe </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'profileView'%}"><i class="fa-solid fa-user"></i> {{ user.first_name }} </a>
         </li>

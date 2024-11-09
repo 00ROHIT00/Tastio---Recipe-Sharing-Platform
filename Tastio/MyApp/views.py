@@ -34,6 +34,9 @@ def recipeView(request):
 def recipeDetails(request):
     return  render(request, 'recipeDetails.html')
 
+def create(request):
+    return render(request, 'create.html')
+
 
 
 
