@@ -218,7 +218,7 @@ body, html {
   -moz-transition: 0.3s ease-in-out;
   -ms-transition: 0.3s ease-in-out;
   -o-transition: 0.3s ease-in-out;
-  border: 2px solid black ;
+
 }
  
 .else-btn:hover{
@@ -229,5 +229,5 @@ body, html {
   -moz-transform: scale(1.2);
   -ms-transform: scale(1.2);
   -o-transform: scale(1.2);
-
+  color : black;
 }
