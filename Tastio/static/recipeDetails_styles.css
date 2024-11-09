@@ -78,7 +78,7 @@ body, html {
 }
 
 .recipeImage {
-  width: 95vw; /* Adds spacing on left and right */
+  width: 95vw;
   height: 30vh;
   border-radius: 15px;
   overflow: hidden;
@@ -100,86 +100,36 @@ body, html {
 .recipeInfo {
   width: 95vw;
   display: flex;
-  justify-content: space-between;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
-.left {
-  width: 100%;
-  line-height: 1.6;
-  white-space: normal;
-  word-wrap: break-word;
-  padding: 15px;
-  max-height: 45vh;
-  box-sizing: border-box;
-}
-
-.left p {
-  line-height: 1.5;
-  margin-bottom: 10px; /* Adds space between paragraphs */
-}
-
-.right {
-  width : 30%;
-  height: auto;
-  border: 2px solid black;
-  border-radius: 5px;
-  margin: 0 auto;
-  padding: 10px; 
-  overflow: visible;
-}
-
-.right ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-
-.right li {
-  margin-bottom: 8px;
+.ingredients {
+  /* border : 2px solid lime; */
+  width : 100vw;
   text-align: center;
-  font-weight: 500;
-}
-
-.right h3 {
-  font-weight: 600;
-  width: 100%;
-  text-align: center;
-  padding-bottom: 13px;
-  margin-bottom: 15px;
   border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  padding : 20px
+}
+.ingredients h3{
+  font-weight: 600;
 }
 
-
-.else-btn {
-  background: transparent;
-  padding: 5px;
-  border-radius: 5px;
-  color: black;
-  transition: 0.3s ease-in-out;
-  border: 2px solid black;
+.ingredients p{
+  font-weight: 600;
 }
 
-.else-btn:hover {
-  text-decoration: underline !important;
-  background: transparent !important;
-  transform: scale(1.2);
+.actualRecipe{
+  margin-top: 30px;
 }
 
-.timeRequired{
-  margin-top : 50px;
-}
-
-.time{
+.actualRecipe h3{
+  font-weight: 600;
   text-align: center;
-  font-weight: 500;
 }
 
 .subheading{
-  margin-top: 15px;
-  margin-bottom: 8px;
-  text-align: center; 
-  width: 100%; 
-  font-weight: 600;
+  font-weight: 700;
 }
