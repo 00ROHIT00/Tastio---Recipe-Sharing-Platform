@@ -8,6 +8,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import logout
+from .models import Recipe
+from django.core.exceptions import ValidationError
+from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 def index(request):
@@ -34,8 +37,6 @@ def recipeView(request):
 def recipeDetails(request):
     return  render(request, 'recipeDetails.html')
 
-def create(request):
-    return render(request, 'create.html')
 
 
 
@@ -164,3 +165,43 @@ def custom_logout(request):
     logout(request)  # Log out the user
     messages.success(request, "You have been logged out successfully.")  # Add a success message
     return redirect('index')
+
+@login_required
+def create(request):
+    if request.method == 'POST':
+        # Retrieve form data from the request
+        recipe_name = request.POST['recipeName']
+        category = request.POST['category']
+        ingredients = request.POST['ingredients']
+        description = request.POST['description']
+        image = request.FILES.get('image')
+
+        # Validate form fields
+        if not all([recipe_name, category, ingredients, description, image]):
+            messages.error(request, "All fields are required.")
+            return redirect('create')
+
+        # Save image to the file system (if necessary)
+        fs = FileSystemStorage()
+        image_name = fs.save(image.name, image)
+        image_url = fs.url(image_name)
+
+        # Create and save the recipe object
+        try:
+            recipe = Recipe.objects.create(
+                user=request.user,  # The logged-in user is the creator of the recipe
+                recipe_name=recipe_name,
+                category=category,
+                ingredients=ingredients,
+                description=description,
+                image=image_url
+            )
+            recipe.save()
+            messages.success(request, "Recipe created successfully!")
+            return redirect('recipeView')  # Redirect to the recipes page or the newly created recipe
+
+        except ValidationError as e:
+            messages.error(request, f"Error: {e}")
+            return redirect('create')
+
+    return render(request, 'create.html')

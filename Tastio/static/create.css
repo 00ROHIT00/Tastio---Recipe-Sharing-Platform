@@ -172,3 +172,13 @@
   -o-transform: scale(1.2);
   color : black;
 }
+
+.dropdown-item{
+  width : 70vw;
+}
+
+.btn-secondary{
+  background-color : transparent;
+  border : 1px solid black;
+  color : black;
+}

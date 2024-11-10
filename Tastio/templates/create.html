@@ -51,25 +51,40 @@
         <p>Make sure to also include all the measures used in the recipe. This will help users to easily follow your recipe. Also make sure to add a image of your delicious disk!</p>
       </div>
       <div class="recipe">
-        <form action="" method="POST" onsubmit="return validateForm()">
+        <form action="{% url 'create' %}" method="POST" onsubmit="return validateForm()" enctype="multipart/form-data">
           {% csrf_token %}
           <p class="textLabel">Enter A Name For Your Recipe</p>
           <input type="text" name="recipeName" class = 'recipeName' required> <br>
-          <p class="textLabel">Enter The Ingredients And Tools For Your Recipe</p>
-          
-          <input type="text" name="ingredients" class = 'ingredients' required> <br>
-          <p class="textLabel">Enter A Description For Your Recipe</p>
 
+          <p class="textLabel">Select A Category For Your Recipe:</p>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span id="dropdownSelected">Categories</span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" onclick="selectCategory('Indian')">Indian</a>
+              <a class="dropdown-item" onclick="selectCategory('Chinese')">Chinese</a>
+              <a class="dropdown-item" onclick="selectCategory('Italian')">Italian</a>
+              <a class="dropdown-item" onclick="selectCategory('Arabic')">Arabic</a>
+              <a class="dropdown-item" onclick="selectCategory('Taiwanese')">Taiwanese</a>
+            </div>
+          </div>
+
+          <input type="hidden" name="category" id="category" required>
+          
+
+          <p class="textLabel">Enter The Ingredients And Tools For Your Recipe</p>
+          <input type="text" name="ingredients" class = 'ingredients' required> <br>
+
+          <p class="textLabel">Enter A Description For Your Recipe</p>
           <div id="editor-wrapper">
             <div id="editor">
                 
             </div>
           </div>
-          
-          <br>  <br>
 
           <input type="hidden" name="description" id="description" required>
-
+<br>
           <p class="textLabel">Choose An Image For Your Recipe:</p>
           <input type="file" class = 'imageFile'  name="image" required accept=".jpg, .jpeg"> <br>
 
@@ -117,6 +132,39 @@
     }
   }
   </script>
+
+<script>
+  function selectCategory(category) {
+    // Update the text in the dropdown button
+    document.getElementById('dropdownSelected').textContent = category;
+
+    document.getElementById('category').value = category;
+  }
+
+  function validateForm() {
+    // Get the editor content as plain text
+    const editorContent = quill.getText().trim(); // Remove any whitespace
+    const descriptionInput = document.getElementById('description');
+    const categoryInput = document.getElementById('category'); // Category hidden input
+
+    // Check if description is empty
+    if (editorContent.length === 0) {
+      alert("Please enter a description for your recipe.");
+      return false;
+    } else {
+
+      descriptionInput.value = quill.root.innerHTML;
+    }
+
+
+    if (categoryInput.value === "") {
+      alert("Please select a category for your recipe.");
+      return false;
+    }
+
+    return true;
+  }
+</script>
 </body>
 </html>
 
