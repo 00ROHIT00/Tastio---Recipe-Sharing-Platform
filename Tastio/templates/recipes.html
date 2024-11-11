@@ -53,103 +53,17 @@
         <input type="search" name="search" class="search" placeholder="Search For Any Recipes / Categories">
         <input type="submit" name="submitSearch" class="submitSearch" value="Submit">
       </div>
+      {% for recipe in recipes %}
       <div class="recipeBox">
-        <a href="{% url 'recipeDetails' %}">
-          <img src="{% static 'images/dosa.JPG' %}" alt="">  
-          <div class="recipeDetails">
-            <h3>Classic Indian Dosa</h3>
-            <p><i class="fa-solid fa-clock"></i>  25 Minutes</p>
-          </div>
-      </a>
+          <a href="">
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe_name }}">
+            <div class="recipeDetails">
+                <h3>{{ recipe.recipe_name }}</h3> <!-- Dynamic recipe name -->
+                <p><i class="fa-solid fa-clock"></i> {{ recipe.time }} Minutes</p> <!-- Dynamic time -->
+            </div>
+          </a>
       </div>
-  
-      <div class="recipeBox">
-        <img src="{% static 'images/salad.jpg' %}" alt="">
-        <div class="recipeDetails">
-          <h3>Chicken Salad</h3>
-          <p>Duration: 20 Minutes</p>
-        </div>
-      </div>
-
-      <div class="recipeBox">
-        <img src="{% static 'images/salad.jpg' %}" alt="">
-        <div class="recipeDetails">
-          <h3>Chicken Salad</h3>
-          <p>Duration: 20 Minutes</p>
-        </div>
-      </div>
-
-      <div class="recipeBox">
-        <img src="{% static 'images/salad.jpg' %}" alt="">
-        <div class="recipeDetails">
-          <h3>Chicken Salad</h3>
-          <p>Duration: 20 Minutes</p>
-        </div>
-      </div>
-
-      <div class="recipeBox">
-        <img src="{% static 'images/salad.jpg' %}" alt="">
-        <div class="recipeDetails">
-          <h3>Chicken Salad</h3>
-          <p>Duration: 20 Minutes</p>
-        </div>
-      </div>
-
-      <div class="recipeBox">
-        <img src="{% static 'images/salad.jpg' %}" alt="">
-        <div class="recipeDetails">
-          <h3>Chicken Salad</h3>
-          <p>Duration: 20 Minutes</p>
-        </div>
-      </div>
-
-      <div class="recipeBox">
-        <img src="{% static 'images/salad.jpg' %}" alt="">
-        <div class="recipeDetails">
-          <h3>Chicken Salad</h3>
-          <p>Duration: 20 Minutes</p>
-        </div>
-      </div>
-
-      <div class="recipeBox">
-        <img src="{% static 'images/salad.jpg' %}" alt="">
-        <div class="recipeDetails">
-          <h3>Chicken Salad</h3>
-          <p>Duration: 20 Minutes</p>
-        </div>
-      </div>
-
-      <div class="recipeBox">
-        <img src="{% static 'images/salad.jpg' %}" alt="">
-        <div class="recipeDetails">
-          <h3>Chicken Salad</h3>
-          <p>Duration: 20 Minutes</p>
-        </div>
-      </div>
-
-      <div class="recipeBox">
-        <img src="{% static 'images/salad.jpg' %}" alt="">
-        <div class="recipeDetails">
-          <h3>Chicken Salad</h3>
-          <p>Duration: 20 Minutes</p>
-        </div>
-      </div>
-
-      <div class="recipeBox">
-        <img src="{% static 'images/salad.jpg' %}" alt="">
-        <div class="recipeDetails">
-          <h3>Chicken Salad</h3>
-          <p>Duration: 20 Minutes</p>
-        </div>
-      </div>
-
-      <div class="recipeBox">
-        <img src="{% static 'images/salad.jpg' %}" alt="">
-        <div class="recipeDetails">
-          <h3>Chicken Salad</h3>
-          <p>Duration: 20 Minutes</p>
-        </div>
-      </div>
+{% endfor %}
 
     </div>
     

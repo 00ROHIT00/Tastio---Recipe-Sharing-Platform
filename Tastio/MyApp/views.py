@@ -32,7 +32,8 @@ def resetView(request):
    return render(request, 'reset.html')
 
 def recipeView(request):
-    return render(request, 'recipes.html')
+    recipes = Recipe.objects.all()
+    return render(request, 'recipes.html', {'recipes': recipes})
 
 def recipeDetails(request):
     return  render(request, 'recipeDetails.html')
@@ -166,7 +167,7 @@ def custom_logout(request):
     messages.success(request, "You have been logged out successfully.")  # Add a success message
     return redirect('index')
 
-@login_required
+
 def create(request):
     if request.method == 'POST':
         # Retrieve form data from the request
@@ -175,9 +176,10 @@ def create(request):
         ingredients = request.POST['ingredients']
         description = request.POST['description']
         image = request.FILES.get('image')
+        time = request.POST.get('time')  # New time field
 
-        # Validate form fields
-        if not all([recipe_name, category, ingredients, description, image]):
+        # Validate form fields, including time
+        if not all([recipe_name, category, ingredients, description, image, time]):
             messages.error(request, "All fields are required.")
             return redirect('create')
 
@@ -194,7 +196,8 @@ def create(request):
                 category=category,
                 ingredients=ingredients,
                 description=description,
-                image=image_url
+                image=image_url,
+                time=time  # Store the time in the database
             )
             recipe.save()
             messages.success(request, "Recipe created successfully!")

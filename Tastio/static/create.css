@@ -72,7 +72,7 @@
   font-weight: 500;
 }
 
-.recipeName, .ingredients, .name {
+.recipeName, .ingredients, .name, .time {
   margin-bottom: 10px;
   width: 70vw;
   text-align: center;
@@ -182,3 +182,18 @@
   border : 1px solid black;
   color : black;
 }
+
+.time{
+  width : 70vw;
+  padding : 7px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+} 
