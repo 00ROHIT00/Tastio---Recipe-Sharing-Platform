@@ -55,7 +55,7 @@
       </div>
       {% for recipe in recipes %}
       <div class="recipeBox">
-          <a href="">
+          <a href="{% url 'recipeDetail' recipe.id %}">
             <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe_name }}">
             <div class="recipeDetails">
                 <h3>{{ recipe.recipe_name }}</h3> <!-- Dynamic recipe name -->

@@ -90,8 +90,7 @@
 }
  
 .users, .recipes{
-    /*border: 2px solid red;
-    */width: 45vw;
+    width: 45vw;
     cursor: pointer;
     align-content: center;
     text-align: center;

@@ -8,10 +8,10 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import logout
-from .models import Recipe
+from .models import *
 from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
-
+from django.shortcuts import render, get_object_or_404
 # Create your views here.
 def index(request):
   return render(request, 'index.html')
@@ -35,8 +35,9 @@ def recipeView(request):
     recipes = Recipe.objects.all()
     return render(request, 'recipes.html', {'recipes': recipes})
 
-def recipeDetails(request):
-    return  render(request, 'recipeDetails.html')
+def recipe_detail(request, id):
+    recipe = get_object_or_404(Recipe, id=id)
+    return render(request, 'recipeDetails.html', {'recipe': recipe})  
 
 
 
