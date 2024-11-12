@@ -133,3 +133,45 @@ body, html {
 .subheading{
   font-weight: 700;
 }
+
+.actualRecipe img{
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border: 2px solid black;
+}
+.actualRecipe p{
+  text-align: center;
+  font-weight: 600;
+}
+
+.actualRecipe a{
+  text-decoration: underline;
+  color: black;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+}
+
+.actualRecipe a:hover{
+  color : blue;
+}
+
+.ingredients a{
+  color: black;
+  text-decoration: underline;
+  transition:0.3s ease-in-out;
+  -webkit-transition:0.3s ease-in-out;
+  -moz-transition:0.3s ease-in-out;
+  -ms-transition:0.3s ease-in-out;
+  -o-transition:0.3s ease-in-out;
+  -webkit-transition:0.3s ease-in-out;
+}
+
+.ingredients a:hover{
+  color : blue;
+}

@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'admin_styles.css'%}">
+    <title>ADMIN | Tasio</title>
+</head>
+<body>
+    <ul class="nav custom">
+        <li class="nav-item">
+          <a class="nav-link active tastio-navbar" href="{%url 'index' %}">TASTiO!</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa-solid fa-house"></i> Home</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#find_more"><i class="fa-solid fa-address-card"></i> About Us</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'recipeView'%}"><i class="fa-solid fa-bowl-food"></i> Recipes</a>
+        </li>
+    
+        <li class="nav-item ml-auto">
+          <!-- {% if user.is_authenticated %}  -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'create'%}"><i class="fa-solid fa-circle-plus"></i> Create Recipe </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profileView'%}"><i class="fa-solid fa-user"></i> {{ user.first_name }} </a>
+          </li>
+        <a class="nav-link space" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+      <!-- {% else %} -->
+        <a class="nav-link" href="{% url 'loginView' %}"><i class="fa-solid fa-user"></i> Log In / Sign Up</a>
+      <!-- {% endif %} -->
+        </li>
+      </ul>
+      <div class="container-fluid">
+        <h1>ADMIN PANEL</h1>
+        <div class="panel">
+          <div class="users">
+            <div class="background" style="background-image: url('{% static 'images/admin_users.png' %}');"></div>
+            <a href="#">Manage Users</a>
+        </div>
+
+        <div class="recipes">
+          <div class="background" style="background-image: url('{% static 'images/admin_recipe.png' %}');"></div>
+          <a href="#">Manage Recipes</a>
+      </div>
+        </div>
+      </div>
+       
+ 
+ 
+ 
+       <!-- FONT AWESOME -->
+    <script src="https://kit.fontawesome.com/ac8010ba48.js" crossorigin="anonymous"></script> 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

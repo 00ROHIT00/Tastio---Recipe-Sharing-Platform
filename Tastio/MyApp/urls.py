@@ -16,4 +16,5 @@ urlpatterns = [
     path('logout/', custom_logout, name='logout'),
     path('recipeDetails/', views.recipeDetails, name='recipeDetails'),
     path('create', views.create, name='create'),
+    path('panel', views.adminPanel, name='adminPanel'),   
 ]

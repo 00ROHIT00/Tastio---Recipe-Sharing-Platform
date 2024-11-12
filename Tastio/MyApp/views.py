@@ -208,3 +208,6 @@ def create(request):
             return redirect('create')
 
     return render(request, 'create.html')
+
+def adminPanel(request):
+    return render(request, 'admin.html')
