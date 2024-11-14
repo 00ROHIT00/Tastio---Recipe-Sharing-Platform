@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root{
+  --background-color : #E7E393 !important;
+  --gradient-color : #8B815D;
+  --text-color : #2E1F27 !important;
+  --navbar-color : #775065;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  user-select: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  -webkit-scroll-behaviour : smooth;
+}
+body{
+  background-color: var(--background-color);
+}
+.custom{
+  background-color: var(--background-color);
+  border-bottom: 1px solid black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+.custom a{
+  font-family: "Poppins", sans-serif;
+  color: var(--text-color); 
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+}
+
+.custom a:hover{
+  transform: scale(115%);
+  -webkit-transform: scale(115%);
+  -moz-transform: scale(115%);
+  -ms-transform: scale(115%);
+  -o-transform: scale(115%);
+  color : var(--navbar-color);
+}
+
+
+.tastio-navbar{
+  font-weight: 1000;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+}
+
+.tastio-navbar:hover{
+  transform: scale((105%));
+  -webkit-transform: scale((105%));
+  -moz-transform: scale((105%));
+  -ms-transform: scale((105%));
+  -o-transform: scale((105%));
+}
+
+.container-fluid{
+  background : var(--background-color);
+  color : var(--text-color) ; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+table{
+  
+  width: 100%;
+  font-weight: normal;
+  background-color : transparent;
+  white-space: nowrap;
+}
+
+th{
+  border : 1px solid black !important;  
+}
+
+.userId{
+  width : 5%;
+  white-space: nowrap;
+}
+.firstName, .lastName,.username{
+  width : 10%;
+}
+.email,.date,.login{
+  width : 20%;
+}
+
+.heading th{
+  font-weight: bold;
+}
+
+.activity{
+  width: 20px;
+}
+
+.date, .login{
+  width : 10%;
+}
+
+.activity, .delete {
+  white-space: nowrap;
+  text-align: center;
+  width: auto; /* Let the browser fit the content naturally */
+  padding: 0 5px; /* Adjust padding for spacing */
+}
+
+tr, th, td{
+  border : 1px solid black;
+}
+
+.heading{
+  border-bottom: 1px solid black !important;
+}
+
+.intro{
+  font-weight: bold;
+}

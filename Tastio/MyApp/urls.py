@@ -17,4 +17,8 @@ urlpatterns = [
     path('recipe/<int:id>/', views.recipe_detail, name='recipeDetail'),
     path('create', views.create, name='create'),
     path('panel', views.adminPanel, name='adminPanel'),   
+    path('manage users/', views.manage_users_view, name='manage_users'),
+    path('delete_user/', views.delete_user, name='delete_user'),
+    path('manage recipes/', views.manage_recipes_view, name='manage_recipe'),
+    path('delete_recipe/<int:recipe_id>/', views.delete_recipe, name='delete_recipe'),
 ]

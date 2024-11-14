@@ -39,9 +39,18 @@ def recipe_detail(request, id):
     recipe = get_object_or_404(Recipe, id=id)
     return render(request, 'recipeDetails.html', {'recipe': recipe})  
 
+def manage_users_view(request):
+    users = User.objects.all()
+    return render(request, 'manage_users.html', {'users': users})
 
+def manage_recipes_view(request):
+    recipes = Recipe.objects.all()
+    return render(request, 'manage_recipes.html', {'recipes': recipes})
 
-
+def delete_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    recipe.delete()
+    return redirect('manage_recipes')
 
 
 def register_user(request):
@@ -90,6 +99,11 @@ def login_user(request):
       user = authenticate(request, username=username, password=password)
       if user is not None:
          login(request, user)
+
+
+         if username == 'admin' and password == 'admin':
+            return redirect('adminPanel')
+         
          return redirect('profileView')
       else:
          messages.error(request, "Invalid Username Or Password!")
@@ -212,3 +226,15 @@ def create(request):
 
 def adminPanel(request):
     return render(request, 'admin.html')
+
+def delete_user(request):
+    if request.method == "POST":
+        user_id = request.POST.get('user_id')
+        try:
+            user = User.objects.get(id=user_id)
+            user.delete()
+            messages.success(request, "User deleted successfully.")
+        except User.DoesNotExist:
+            messages.error(request, "User does not exist.")
+    return redirect('manage_users')
+

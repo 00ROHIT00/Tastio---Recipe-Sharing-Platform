@@ -38,16 +38,16 @@
         </li>
       </ul>
       <div class="container-fluid">
-        <h1>ADMIN PANEL</h1>
+        <h1>WELCOME, ADMIN!</h1>
         <div class="panel">
           <div class="users">
             <div class="background" style="background-image: url('{% static 'images/admin_users.png' %}');"></div>
-            <a href="#">Manage Users</a>
+            <a href="{% url 'manage_users' %}">Manage Users</a>
         </div>
 
         <div class="recipes">
           <div class="background" style="background-image: url('{% static 'images/admin_recipe.png' %}');"></div>
-          <a href="#">Manage Recipes</a>
+          <a href="{% url 'manage_recipe' %}">Manage Recipes</a>
       </div>
         </div>
       </div>
