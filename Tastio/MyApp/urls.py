@@ -21,4 +21,5 @@ urlpatterns = [
     path('delete_user/', views.delete_user, name='delete_user'),
     path('manage recipes/', views.manage_recipes_view, name='manage_recipe'),
     path('delete_recipe/<int:recipe_id>/', views.delete_recipe, name='delete_recipe'),
+    path('change-password/', views.change_password, name='change_password'),
 ]

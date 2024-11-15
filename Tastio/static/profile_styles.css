@@ -231,3 +231,19 @@ body, html {
   -o-transform: scale(1.2);
   color : black;
 }
+
+.changePass{
+  text-decoration: none;
+  color: rgb(255, 81, 81);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+}
+
+.changePass:hover{
+  text-decoration: none;
+  color : rgb(123, 0, 0);
+}

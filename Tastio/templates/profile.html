@@ -58,6 +58,7 @@
               <p><i class="fa-solid fa-signature"></i>  <b>Username</b> : {{ user.username }}</p>
               <p><i class="fa-solid fa-envelope"></i>    <b>Email</b>: {{ user.email }}</p>
               <p><i class="fa-solid fa-calendar-days"></i>    <b>Account Created</b> : {{ user.date_joined|date:"Y-m-d" }}</p>
+              <a href="{% url 'change_password' %}" class="changePass"><i class="fa-solid fa-key"></i>   <b>Change Password?</b></a>
             </div>
             <div class="right">
               <h3>Liked Recipes</h3>

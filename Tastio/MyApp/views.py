@@ -12,6 +12,7 @@ from .models import *
 from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import update_session_auth_hash
 # Create your views here.
 def index(request):
   return render(request, 'index.html')
@@ -176,6 +177,7 @@ def reset_password(request):
             
     return render(request, 'reset.html')
     
+    
 
 def custom_logout(request):
     logout(request)  # Log out the user
@@ -238,3 +240,25 @@ def delete_user(request):
             messages.error(request, "User does not exist.")
     return redirect('manage_users')
 
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        new_password = request.POST.get('password')
+        confirm_password = request.POST.get('ConfirmPassword')
+        
+        # Check if the user exists and the passwords match
+        if username == request.user.username:
+            if new_password == confirm_password:
+                user = User.objects.get(username=username)
+                user.set_password(new_password)
+                user.save()
+                update_session_auth_hash(request, user)  # Keeps the user logged in after password change
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('profileView')
+            else:
+                messages.error(request, 'Passwords do not match.')
+        else:
+            messages.error(request, 'Username does not match the logged-in user.')
+    
+    return render(request, 'changePass.html')
