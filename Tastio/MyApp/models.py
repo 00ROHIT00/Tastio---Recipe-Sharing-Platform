@@ -28,3 +28,14 @@ class Comment(models.Model):
     
     def __str__(self):
         return f"Comment by {self.user.username} on {self.recipe.recipe_name}"
+    
+class SavedRecipe(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    saved_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'recipe')  # Ensure a user can save the same recipe only once
+
+    def __str__(self):
+        return f'{self.user.username} saved {self.recipe.recipe_name}'

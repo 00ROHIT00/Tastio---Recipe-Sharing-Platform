@@ -23,10 +23,10 @@
       <a class="nav-link active tastio-navbar" href="{%url 'index' %}">TASTiO!</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa-solid fa-house"></i> Home</i></a>
+      <a class="nav-link" href="{%url 'index' %}"><i class="fa-solid fa-house"></i> Home</i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#find_more"><i class="fa-solid fa-address-card"></i> About Us</i></a>
+      <a class="nav-link" href="{%url 'index' %}#find_more"><i class="fa-solid fa-address-card"></i> About Us</i></a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'recipeView'%}"><i class="fa-solid fa-bowl-food"></i> Recipes</a>
@@ -34,6 +34,12 @@
 
     <li class="nav-item ml-auto">
       {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'saved_recipes'%}"><i class="fa-solid fa-book-bookmark"></i> Saved Recipes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'create'%}"><i class="fa-solid fa-circle-plus"></i> Create Recipe </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'profileView'%}"><i class="fa-solid fa-user"></i> {{ user.first_name }} </a>
       </li>

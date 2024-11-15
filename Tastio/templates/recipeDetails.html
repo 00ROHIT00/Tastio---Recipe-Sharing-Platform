@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{% static 'recipeDetails_styles.css' %}">
 </head>
 <body>
+  <!-- Navbar -->
   <ul class="nav custom">
     <li class="nav-item">
       <a class="nav-link active tastio-navbar" href="{% url 'index' %}">TASTiO!</a>
@@ -23,7 +24,6 @@
     <li class="nav-item">
       <a class="nav-link" href="{% url 'recipeView' %}"><i class="fa-solid fa-bowl-food"></i> Recipes</a>
     </li>
-
     <li class="nav-item ml-auto">
       {% if user.is_authenticated %}
       <li class="nav-item">
@@ -32,76 +32,92 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'profileView' %}"><i class="fa-solid fa-user"></i> {{ user.first_name }} </a>
       </li>
-    <a class="nav-link space" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
-  {% else %}
-    <a class="nav-link" href="{% url 'loginView' %}"><i class="fa-solid fa-user"></i> Log In / Sign Up</a>
-  {% endif %}
+      <a class="nav-link space" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+      {% else %}
+      <a class="nav-link" href="{% url 'loginView' %}"><i class="fa-solid fa-user"></i> Log In / Sign Up</a>
+      {% endif %}
     </li>
   </ul>
 
+  <!-- Recipe Section -->
   <section id="firstPage">
     <div class="container-fluid">
-        <div class="recipeImageBox">
-          <div class="recipeImage">
-            <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe_name }}">
-          </div>
-          <div class="recipeNameBox">
-            <h1 class="recipeName">{{ recipe.recipe_name }}</h1>
-            {% if user.is_authenticated %}
-            <i class="fa-solid fa-heart like-icon {% if user_like %}liked{% else %}unliked{% endif %}" 
-            onclick="toggleLike({{ recipe.id }})"></i>
-            {% else %}
-            <a href="{% url 'loginView' %}" class="loginMsg">Log in to like this recipe</a>
-            {% endif %}
-          </div>
-          <div class="recipeInfo">
-            <div class="ingredients">
-              <h3>INGREDIENTS AND TOOLS REQUIRED</h3>
-              <p>{{ recipe.ingredients|safe }}</p>
-            </div>
+      <div class="recipeImageBox">
+        <div class="recipeImage">
+          <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe_name }}">
+        </div>
+        <div class="recipeNameBox">
+          <h1 class="recipeName">{{ recipe.recipe_name }}</h1>
 
-            <div class="actualRecipe">
-              <h3>HOW TO MAKE?</h3>
-              <p>{{ recipe.description|safe }}</p>
-            </div>
+          <!-- Bookmark Icon -->
+          {% if user.is_authenticated %}
+            {% if is_saved %}
+              <a href="{% url 'unbookmark_recipe' recipe.id %}" class="saveBtn">
+                <i class="fa-solid fa-bookmark"></i>
+              </a>
+            {% else %}
+              <a href="{% url 'bookmark_recipe' recipe.id %}" class="saveBtn">
+                <i class="fa-regular fa-bookmark"></i>
+              </a>
+            {% endif %}
+
+            <!-- Like Button -->
+            <i class="fa-solid fa-heart like-icon {% if user_like %}liked{% else %}unliked{% endif %}" 
+               onclick="toggleLike({{ recipe.id }})"></i>
+          {% else %}
+            <a href="{% url 'loginView' %}" class="loginMsg">Log in to interact with this post</a>
+          {% endif %}
+        </div>
+
+        <div class="recipeInfo">
+          <div class="ingredients">
+            <h3>INGREDIENTS AND TOOLS REQUIRED</h3>
+            <p>{{ recipe.ingredients|safe }}</p>
+          </div>
+
+          <div class="actualRecipe">
+            <h3>HOW TO MAKE?</h3>
+            <p>{{ recipe.description|safe }}</p>
           </div>
         </div>
+      </div>
     </div>
   </section>
-  
+
+  <!-- Comments Section -->
   <section class="comments">
     <h3 class="commentHeading">Comments</h3>
     <h6 style="text-align: center;">Add A Comment</h6>
     {% if user.is_authenticated %}
-    <form method="POST" action="{% url 'add_comment' recipe.id %}">
+      <form method="POST" action="{% url 'add_comment' recipe.id %}">
         {% csrf_token %}
         <textarea name="comment" rows="4" placeholder="Add your comment..."></textarea><br>
         <button class="commentBtn" type="submit">Post Comment</button>
-    </form>
-{% else %}
-    <a href="{% url 'loginView' %}">You must be logged in to comment.</a>
-{% endif %}
+      </form>
+    {% else %}
+      <a href="{% url 'loginView' %}">You must be logged in to comment.</a>
+    {% endif %}
     
     <div class="comments-list">
       {% for comment in comments %}
-          <div class="commentBox">
-              <h5>{{ comment.user.username }}</h5>
-              <p class="time">{{ comment.created_at|date:"d-m-Y" }}</p>
-              <p>{{ comment.text }}</p>
-          </div>
+        <div class="commentBox">
+          <h5>{{ comment.user.username }}</h5>
+          <p class="time">{{ comment.created_at|date:"d-m-Y" }}</p>
+          <p>{{ comment.text }}</p>
+        </div>
       {% empty %}
-          <p>No comments yet. Be the first to comment!</p>
+        <p>No comments yet. Be the first to comment!</p>
       {% endfor %}
-  </div>
-
+    </div>
   </section>
 
-  <!-- FONT AWESOME -->
+  <!-- Scripts -->
   <script src="https://kit.fontawesome.com/ac8010ba48.js" crossorigin="anonymous"></script> 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
+  <!-- Like Script -->
   <script>
     function toggleLike(recipeId) {
       fetch(`/like/${recipeId}/`, { 
@@ -110,15 +126,14 @@
           'X-CSRFToken': '{{ csrf_token }}',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 'recipeId': recipeId }) // send the recipeId to the server
+        body: JSON.stringify({ 'recipeId': recipeId })
       })
-        .then(response => response.json())  // expects a JSON response
-        .then(data => {
-          if (data.success) {
-            // Change the like button state and reload the page
-            location.reload(); // This reloads the page
-          }
-        });
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          location.reload();
+        }
+      });
     }
   </script>
 </body>

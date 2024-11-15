@@ -298,4 +298,28 @@ textarea:focus {
 .commentHeading {
   font-size: 2rem;
   font-weight: bold;
+
 }
+
+.saveBtn{
+  position: absolute;
+  right: 130px ;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  padding : 10px;
+  text-decoration: none;
+}
+
+.saveBtn:hover{
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+}
+

@@ -30,6 +30,9 @@
     <li class="nav-item ml-auto">
       {% if user.is_authenticated %}
       <li class="nav-item">
+        <a class="nav-link" href="{% url 'saved_recipes'%}"><i class="fa-solid fa-book-bookmark"></i> Saved Recipes</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'create'%}"><i class="fa-solid fa-circle-plus"></i> Create Recipe </a>
       </li>
       <li class="nav-item">

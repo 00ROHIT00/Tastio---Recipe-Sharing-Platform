@@ -16,6 +16,7 @@ from django.contrib.auth import update_session_auth_hash
 from .models import Recipe, Like
 from .models import Recipe, Comment
 from django.http import JsonResponse
+from .models import SavedRecipe, Recipe
 # Create your views here.
 def index(request):
   return render(request, 'index.html')
@@ -52,39 +53,29 @@ def recipeView(request):
     recipes = Recipe.objects.all()
     return render(request, 'recipes.html', {'recipes': recipes})
 
-# def recipe_detail(request, id):
-#     recipe = get_object_or_404(Recipe, id=id)
-#     user_like = False  # Default to not liked
-    
-#     if request.user.is_authenticated:
-#         # Check if the user has liked this recipe
-#         user_like = Like.objects.filter(user=request.user, recipe=recipe).exists()
-
-#     # Pass both the recipe and like status to the template
-#     context = {
-#         'recipe': recipe,
-#         'user_like': user_like,
-#     }
-#     return render(request, 'recipeDetails.html', context)
+from django.shortcuts import get_object_or_404
 
 def recipe_detail(request, id):
     recipe = get_object_or_404(Recipe, id=id)
-    user_like = False  # Default to not liked
-    
+    user_like = False 
+    is_saved = False  
+
     if request.user.is_authenticated:
-        # Check if the user has liked this recipe
+
         user_like = Like.objects.filter(user=request.user, recipe=recipe).exists()
 
-    # Fetch comments related to the recipe
-    comments = Comment.objects.filter(recipe=recipe).order_by('-created_at')  # Get comments in reverse order of creation
+        is_saved = SavedRecipe.objects.filter(user=request.user, recipe=recipe).exists()
 
-    # Pass both the recipe, like status, and comments to the template
+    comments = Comment.objects.filter(recipe=recipe).order_by('-created_at')
+
     context = {
         'recipe': recipe,
         'user_like': user_like,
+        'is_saved': is_saved,
         'comments': comments,
     }
     return render(request, 'recipeDetails.html', context)
+
 
 
 def manage_users_view(request):
@@ -331,3 +322,27 @@ def add_comment(request, recipe_id):
             comment = Comment.objects.create(recipe=recipe, user=request.user, text=comment_text)
             comment.save()
         return redirect('recipe_details', recipe_id=recipe.id)  # Redirect back to the recipe page
+    
+@login_required
+def bookmark_recipe(request, recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
+    
+    # Check if the recipe is already bookmarked
+    if not SavedRecipe.objects.filter(user=request.user, recipe=recipe).exists():
+        SavedRecipe.objects.create(user=request.user, recipe=recipe)
+    
+    return redirect('recipe_details', recipe_id=recipe.id)  # Redirect to the recipe details page
+
+# Unbookmark a recipe
+@login_required
+def unbookmark_recipe(request, recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
+    SavedRecipe.objects.filter(user=request.user, recipe=recipe).delete()
+    
+    return redirect('recipe_details', recipe_id=recipe.id)
+
+# View saved recipes
+@login_required
+def saved_recipes(request):
+    saved_recipes = SavedRecipe.objects.filter(user=request.user)
+    return render(request, 'saved_recipes.html', {'saved_recipes': saved_recipes})
