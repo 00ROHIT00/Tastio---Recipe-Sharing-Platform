@@ -12,3 +12,10 @@ class Recipe(models.Model):
     time = models.IntegerField(help_text="Time required for the recipe in minutes")  # Field for time
     created_at = models.DateTimeField(auto_now_add=True)
 
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    liked_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'recipe')

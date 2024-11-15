@@ -175,3 +175,52 @@ body, html {
 .ingredients a:hover{
   color : blue;
 }
+
+.recipeNameBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.recipeName {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.like-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  right: 70px;
+  border-radius: 50% ;
+  -webkit-border-radius: 50% ;
+  -moz-border-radius: 50% ;
+  -ms-border-radius: 50% ;
+  -o-border-radius: 50% ;
+  border: 1px solid black;
+  padding: 7px;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+}
+
+.like-icon:hover{
+    color: #ff6666;
+    background-color: black;
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+}
+
+
+.unliked{
+  color : black;
+}
+
+.liked{
+  color: #ff6666;
+}

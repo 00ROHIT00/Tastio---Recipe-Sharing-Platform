@@ -13,6 +13,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import update_session_auth_hash
+from .models import Recipe, Like
 # Create your views here.
 def index(request):
   return render(request, 'index.html')
@@ -38,7 +39,18 @@ def recipeView(request):
 
 def recipe_detail(request, id):
     recipe = get_object_or_404(Recipe, id=id)
-    return render(request, 'recipeDetails.html', {'recipe': recipe})  
+    user_like = False  # Default to not liked
+    
+    if request.user.is_authenticated:
+        # Check if the user has liked this recipe
+        user_like = Like.objects.filter(user=request.user, recipe=recipe).exists()
+
+    # Pass both the recipe and like status to the template
+    context = {
+        'recipe': recipe,
+        'user_like': user_like,
+    }
+    return render(request, 'recipeDetails.html', context)
 
 def manage_users_view(request):
     users = User.objects.all()
@@ -262,3 +274,18 @@ def change_password(request):
             messages.error(request, 'Username does not match the logged-in user.')
     
     return render(request, 'changePass.html')
+
+
+@login_required
+def like_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    like, created = Like.objects.get_or_create(user=request.user, recipe=recipe)
+
+    if not created:
+        # If the like already exists, remove it (unlike)
+        like.delete()
+
+    return redirect('recipe_detail', recipe_id=recipe.id)
+
+
+
