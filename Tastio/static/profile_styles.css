@@ -174,16 +174,29 @@ body, html {
   -webkit-filter: brightness(60%);
 }
 
-.recipeDetails p{
+.recipeDetails a{
   position: absolute;
-  color : white;
+  color: white;
   font-weight: bold;
   font-size: 2.2rem;
   text-align: center;
   z-index: 2;
   margin: 0;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  text-decoration: none;
 }
-
+.recipeDetails a:hover{
+  transform: scale(1.1);
+  text-decoration: none;
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
 .recipeDetails::before{
   content: "";
   position: absolute;

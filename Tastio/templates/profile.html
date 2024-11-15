@@ -62,19 +62,16 @@
             </div>
             <div class="right">
               <h3>Liked Recipes</h3>
-              <div class="recipeDetails firstRecipe">
-                <img src="{% static '/images/dosa.jpg' %}" alt="Dosa">
-                <p>Dosa</p>
-              </div>
-              <div class="recipeDetails secondRecipe">
-                <img src="{% static '/images/Biryani.jpg' %}" alt="Biryani">
-                <p>Biryani</p>
-              </div>
-              <div class="recipeDetails thirdRecipe">
-                <img src="{% static '/images/pasta.jpg' %}" alt="Pasta">
-                <p>Pasta</p>
-              </div>
-            </div>
+              {% for recipe in recipes %}
+                <div class="recipeDetails">
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe_name }}">
+                    <a href="{% url 'recipeDetail' id=recipe.id %}">{{ recipe.recipe_name }}</a>
+                </div>
+            
+              {% empty %}
+                  <p>You have no liked recipes.</p>
+              {% endfor %}
+          </div>
           </div>
         </div>
       {% else %}

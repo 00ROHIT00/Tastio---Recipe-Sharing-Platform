@@ -23,4 +23,7 @@ urlpatterns = [
     path('delete_recipe/<int:recipe_id>/', views.delete_recipe, name='delete_recipe'),
     path('change-password/', views.change_password, name='change_password'),
     path('like/<int:recipe_id>/', views.like_recipe, name='like_recipe'),
+    path('recipe/<int:id>/', views.recipe_detail, name='recipe_detail'),
+    path('recipe/<int:recipe_id>/', views.recipe_detail, name='recipe_details'),
+    path('recipe/<int:recipe_id>/comment/', views.add_comment, name='add_comment'),
 ]

@@ -14,6 +14,8 @@ from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import update_session_auth_hash
 from .models import Recipe, Like
+from .models import Recipe, Comment
+from django.http import JsonResponse
 # Create your views here.
 def index(request):
   return render(request, 'index.html')
@@ -25,7 +27,20 @@ def registerView(request):
   return render(request, 'register.html')
 
 def profileView(request):
-  return render(request, 'profile.html', {'user': request.user})
+    if request.user.is_authenticated:
+        # Get the user's liked recipes (limit to 3)
+        liked_recipes = Like.objects.filter(user=request.user).select_related('recipe')[:3]
+
+        # Extract the recipes from the Like instances
+        recipes = [like.recipe for like in liked_recipes]
+
+        context = {
+            'recipes': recipes,
+        }
+        return render(request, 'profile.html', context)
+    else:
+        return render(request, 'login.html')
+    
 
 def forgotPasswordView(request):
    return render(request, 'forgotPass.html')
@@ -37,6 +52,21 @@ def recipeView(request):
     recipes = Recipe.objects.all()
     return render(request, 'recipes.html', {'recipes': recipes})
 
+# def recipe_detail(request, id):
+#     recipe = get_object_or_404(Recipe, id=id)
+#     user_like = False  # Default to not liked
+    
+#     if request.user.is_authenticated:
+#         # Check if the user has liked this recipe
+#         user_like = Like.objects.filter(user=request.user, recipe=recipe).exists()
+
+#     # Pass both the recipe and like status to the template
+#     context = {
+#         'recipe': recipe,
+#         'user_like': user_like,
+#     }
+#     return render(request, 'recipeDetails.html', context)
+
 def recipe_detail(request, id):
     recipe = get_object_or_404(Recipe, id=id)
     user_like = False  # Default to not liked
@@ -45,12 +75,17 @@ def recipe_detail(request, id):
         # Check if the user has liked this recipe
         user_like = Like.objects.filter(user=request.user, recipe=recipe).exists()
 
-    # Pass both the recipe and like status to the template
+    # Fetch comments related to the recipe
+    comments = Comment.objects.filter(recipe=recipe).order_by('-created_at')  # Get comments in reverse order of creation
+
+    # Pass both the recipe, like status, and comments to the template
     context = {
         'recipe': recipe,
         'user_like': user_like,
+        'comments': comments,
     }
     return render(request, 'recipeDetails.html', context)
+
 
 def manage_users_view(request):
     users = User.objects.all()
@@ -288,4 +323,11 @@ def like_recipe(request, recipe_id):
     return redirect('recipe_detail', recipe_id=recipe.id)
 
 
-
+def add_comment(request, recipe_id):
+    if request.method == 'POST':
+        recipe = get_object_or_404(Recipe, id=recipe_id)
+        comment_text = request.POST.get('comment')
+        if comment_text:
+            comment = Comment.objects.create(recipe=recipe, user=request.user, text=comment_text)
+            comment.save()
+        return redirect('recipe_details', recipe_id=recipe.id)  # Redirect back to the recipe page

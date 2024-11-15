@@ -215,7 +215,10 @@ body, html {
     -ms-transform: scale(1.2);
     -o-transform: scale(1.2);
 }
-
+.loginMsg{
+  position: absolute;
+  right: 70px;
+}
 
 .unliked{
   color : black;
@@ -223,4 +226,76 @@ body, html {
 
 .liked{
   color: #ff6666;
+}
+
+.commentHeading{
+  font-weight: bold;
+  text-align: center;
+}
+
+.commentBox{
+  background-color: rgba(255, 255, 255, 0.501);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 20px;
+  margin-top: 20px;
+  padding : 10px;
+}
+
+
+
+.time{
+  text-align: right;
+}
+
+
+
+textarea {
+  width: 70%; /* Adjust width as needed */
+  height: 100px;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--text-color); /* Text color */
+  font-size: 1rem;
+  resize: none;
+  margin-bottom: 15px;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #775065; /* Change border color when focused */
+}
+
+.commentBtn {
+  background-color: transparent;
+  color: black;
+  border: 2px solid black;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.commentBtn:hover {
+  background-color: var(--text-color);
+  color: white;
+  border-color: var(--text-color);
+}
+
+.comments {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.commentHeading {
+  font-size: 2rem;
+  font-weight: bold;
 }
