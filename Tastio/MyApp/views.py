@@ -346,3 +346,19 @@ def unbookmark_recipe(request, recipe_id):
 def saved_recipes(request):
     saved_recipes = SavedRecipe.objects.filter(user=request.user)
     return render(request, 'saved_recipes.html', {'saved_recipes': saved_recipes})
+
+def recipe_search(request):
+    search_query = request.GET.get('search', '')
+
+    if search_query:
+        # Filter recipes by both recipe_name and ingredients fields
+        recipes = Recipe.objects.filter(
+            recipe_name__icontains=search_query
+        ) | Recipe.objects.filter(
+            ingredients__icontains=search_query
+        )
+    else:
+        # Show all recipes if no search query is entered
+        recipes = Recipe.objects.all()
+
+    return render(request, 'recipes.html', {'recipes': recipes})
