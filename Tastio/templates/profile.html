@@ -64,7 +64,8 @@
               <a href="{% url 'change_password' %}" class="changePass"><i class="fa-solid fa-key"></i>   <b>Change Password?</b></a>
             </div>
             <div class="right">
-              <h3>Liked Recipes</h3>
+              <a href="{% url 'liked_recipes' %}"><h3>Liked Recipes</h3>
+            </a>
               {% for recipe in recipes %}
                 <div class="recipeDetails">
                     <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe_name }}">

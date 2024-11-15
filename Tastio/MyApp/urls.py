@@ -30,4 +30,5 @@ urlpatterns = [
     path('unbookmark/<int:recipe_id>/', views.unbookmark_recipe, name='unbookmark_recipe'),
     path('saved_recipes/', views.saved_recipes, name='saved_recipes'),
     path('recipes/search/', views.recipe_search, name='recipeSearch'),
+    path('liked/', views.liked_recipes_view, name='liked_recipes_view'),
 ]

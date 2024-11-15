@@ -362,3 +362,18 @@ def recipe_search(request):
         recipes = Recipe.objects.all()
 
     return render(request, 'recipes.html', {'recipes': recipes})
+
+def liked_recipes_view(request):
+    if request.user.is_authenticated:
+        # Get all liked recipes for the logged-in user
+        liked_recipes = Like.objects.filter(user=request.user).select_related('recipe')
+
+        # Extract the recipes from the Like instances
+        recipes = [like.recipe for like in liked_recipes]
+
+        context = {
+            'recipes': recipes,
+        }
+        return render(request, 'liked_recipes.html', context)
+    else:
+        return render(request, 'login.html')
