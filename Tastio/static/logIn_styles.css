@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-:root{
-  --background-color : #E7E393 !important;
-  --gradient-color : #8B815D;
-  --text-color : #2E1F27 !important;
-  --navbar-color : #775065;
+:root {
+  --background-color: #E7E393;
+  --gradient-color: #8B815D;
+  --text-color: #2E1F27;
+  --navbar-color: #775065;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -15,19 +15,7 @@
   user-select: none;
   scrollbar-width: none;
   scroll-behavior: smooth;
-  -webkit-scroll-behaviour : smooth;
 }
-
-.container-fluid{
-  background : var(--background-color);
-  color : var(--text-color) ; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
 .custom{
   background-color: var(--background-color);
   border-bottom: 1px solid black;
@@ -37,10 +25,10 @@
   width: 100%;
   z-index: 1000;
 }
+
 .custom a{
   font-family: "Poppins", sans-serif;
   color: var(--text-color); 
-
   transition: 0.3s ease-in-out;
   -webkit-transition: 0.3s ease-in-out;
   -moz-transition: 0.3s ease-in-out;
@@ -56,136 +44,119 @@
   -o-transform: scale(115%);
   color : var(--navbar-color);
 }
-
-
-.tastio-navbar{
-  font-weight: 1000;
-  transition: 0.3s ease-in-out;
-  -webkit-transition: 0.3s ease-in-out;
-  -moz-transition: 0.3s ease-in-out;
-  -ms-transition: 0.3s ease-in-out;
-  -o-transition: 0.3s ease-in-out;
+.container-fluid {
+  background: var(--background-color);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.tastio-navbar:hover{
-  transform: scale((105%));
-  -webkit-transform: scale((105%));
-  -moz-transform: scale((105%));
-  -ms-transform: scale((105%));
-  -o-transform: scale((105%));
-}
 
-.signInBox h1{
-  font-weight: 1000;
-  border-bottom: 1px solid black;
-  padding-bottom: 13px;
-}
-
-.signInBox{
+.signInBox {
   border: 2px solid black;
-  padding: 2%;
-  border-radius: 10px ;
-  -webkit-border-radius: 10px ;
-  -moz-border-radius: 10px ;
-  -ms-border-radius: 10px ;
-  -o-border-radius: 10px ;
+  padding: 20px;
+  border-radius: 10px;
   text-align: center;
+  background-color: var(--background-color); 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.signInBox input{
-  margin : 3%;
-  min-width: 70%;
+.signInBox h1 {
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid black;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.signInBox input {
+  display: block;
+  margin: 10px auto;
+  width: 90%;
+  padding: 10px;
   outline: none;
   background: transparent;
-  border: 1px solid #2E1F27;
-  padding: 1%;
-  transition: 0.3s ease-in-out ;
-  -webkit-transition: 0.3s ease-in-out ;
-  -moz-transition: 0.3s ease-in-out ;
-  -ms-transition: 0.3s ease-in-out ;
-  -o-transition: 0.3s ease-in-out ;
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
 }
 
-.signInBox input:focus{
-  border-radius: 7px;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  -o-border-radius: 7px;
+.signInBox input:focus {
+  border-color: var(--navbar-color);
+  box-shadow: 0 0 5px var(--navbar-color);
 }
-.signBtn{
-  text-decoration: none;
-  border: 1px solid black;
-  padding-top: 1.5%;
-  padding-bottom: 1.5%;
-  padding-left: 32%;
-  padding-right: 32%;
+
+.signInBox button,
+.signInBox .forgetBtn {
+  display: block;
+  width: 90%;
+  margin: 15px auto;
+  padding: 10px;
+  font-size: 16px;
   background: rgb(151, 214, 151);
   color: black;
-  transition: 0.3s ease-in-out ;
-  -webkit-transition: 0.3s ease-in-out ;
-  -moz-transition: 0.3s ease-in-out ;
-  -ms-transition: 0.3s ease-in-out ;
-  -o-transition: 0.3s ease-in-out ;
-  margin-bottom:3%;
-}
-
-.signBtn:hover{
-  background: rgb(70, 212, 70);
-  border-radius: 7px;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  -o-border-radius: 7px;
-  text-decoration: none;
-  color :#FF00FF;
-}
-
-
-.forgetBtn { 
-  text-decoration: none;
   border: 1px solid black;
-  padding-top: 1.5%;
-  padding-bottom: 1.5%;
-  padding-left: 24%;
-  padding-right: 24%;
-  background: rgb(151, 214, 151);
-  color: black;
-  transition: 0.3s ease-in-out;
-  -webkit-transition: 0.3s ease-in-out;
-  -moz-transition: 0.3s ease-in-out;
-  -ms-transition: 0.3s ease-in-out;
-  -o-transition: 0.3s ease-in-out;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  -webkit-transition: background 0.3s ease, transform 0.2s ease;
+  -moz-transition: background 0.3s ease, transform 0.2s ease;
+  -ms-transition: background 0.3s ease, transform 0.2s ease;
+  -o-transition: background 0.3s ease, transform 0.2s ease;
 }
 
-
-
-.forgetBtn:hover{
+.signInBox button:hover,
+.signInBox .forgetBtn:hover {
   background: rgb(70, 212, 70);
-  border-radius: 7px;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  -o-border-radius: 7px;
-  text-decoration: none;
-  color :#FF00FF;
+  transform: scale(1.05);
+  color: #ff00ff;
 }
 
-.newUser{
+.newUser {
   color: black;
   font-weight: 500;
   text-decoration: underline;
   transition: 0.3s ease-in-out;
-  -webkit-transition: 0.3s ease-in-out;
-  -moz-transition: 0.3s ease-in-out;
-  -ms-transition: 0.3s ease-in-out;
-  -o-transition: 0.3s ease-in-out;
 }
 
-.newUser:hover{
-  color: #FF00FF;
+.newUser:hover {
+  color: #ff00ff;
 }
 
-input::placeholder{
+
+input::placeholder {
   text-align: center;
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 90%;
+  margin: 10px auto;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px; 
+}
+
+.password-wrapper .toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.password-wrapper .toggle-password:hover {
+  color: var(--navbar-color);
 }

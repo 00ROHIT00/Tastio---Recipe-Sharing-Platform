@@ -92,6 +92,10 @@ def delete_recipe(request, recipe_id):
     return redirect('manage_recipes')
 
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib import messages
+
 def register_user(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -126,9 +130,11 @@ def register_user(request):
         )
         user.save()
 
-        messages.success(request, "Registration successful!")
+        messages.success(request, "Registration successful! You can now log in.")
+        return redirect('loginView')  # Redirect to the login page
 
     return render(request, 'register.html')
+
 
 def login_user(request):
    if request.method == 'POST':

@@ -130,8 +130,21 @@ body, html {
   text-align: center;
 }
 
+.actualRecipe h2, h4  {
+  text-align: center;
+}
 .subheading{
   font-weight: 700;
+}
+
+
+.actualRecipe img {
+  width: 100%; /* Makes the image take the full width of its container */
+  max-width: 600px; /* Set a maximum width to prevent images from getting too large */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensures the image covers the container without distortion */
+  display: block; /* Ensures the image doesn't create unwanted gaps or spacing */
+  margin: 0 auto; /* Centers the image horizontally */
 }
 
 .actualRecipe img{

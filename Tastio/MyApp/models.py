@@ -9,7 +9,7 @@ class Recipe(models.Model):
     ingredients = models.TextField()
     description = models.TextField()
     image = models.ImageField(upload_to='images/') 
-    time = models.IntegerField(help_text="Time required for the recipe in minutes")  # Field for time
+    time = models.CharField(max_length=100, help_text="Time required for the recipe (e.g., '30 minutes')")  # Changed to CharField
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Like(models.Model):
