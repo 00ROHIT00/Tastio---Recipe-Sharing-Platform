@@ -55,15 +55,14 @@ def recipeView(request):
 
 from django.shortcuts import get_object_or_404
 
+
 def recipe_detail(request, id):
     recipe = get_object_or_404(Recipe, id=id)
-    user_like = False 
-    is_saved = False  
+    user_like = False
+    is_saved = False
 
     if request.user.is_authenticated:
-
         user_like = Like.objects.filter(user=request.user, recipe=recipe).exists()
-
         is_saved = SavedRecipe.objects.filter(user=request.user, recipe=recipe).exists()
 
     comments = Comment.objects.filter(recipe=recipe).order_by('-created_at')
@@ -75,8 +74,6 @@ def recipe_detail(request, id):
         'comments': comments,
     }
     return render(request, 'recipeDetails.html', context)
-
-
 
 def manage_users_view(request):
     users = User.objects.all()

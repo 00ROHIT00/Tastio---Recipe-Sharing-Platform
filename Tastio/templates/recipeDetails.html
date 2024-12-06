@@ -51,7 +51,10 @@
           <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe_name }}">
         </div>
         <div class="recipeNameBox">
-          <h1 class="recipeName">{{ recipe.recipe_name }}</h1>
+          <div class="recipeNameBox">
+            <h1 class="recipeName">{{ recipe.recipe_name }}</h1>
+            <h6 class="recipeAuthor">by {{ recipe.user.first_name|default:recipe.user.username }}</h6>
+          </div>
 
           <!-- Bookmark Icon -->
           {% if user.is_authenticated %}

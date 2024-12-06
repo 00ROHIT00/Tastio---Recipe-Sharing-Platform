@@ -336,3 +336,23 @@ textarea:focus {
   -o-transform: scale(1.2);
 }
 
+.recipeNameBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.recipeName {
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+
+.recipeAuthor {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 5px;
+  color: #555;
+}
