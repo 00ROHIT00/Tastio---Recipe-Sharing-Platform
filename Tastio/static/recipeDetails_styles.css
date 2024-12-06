@@ -324,7 +324,6 @@ textarea:focus {
   -moz-transition: 0.3s ease-in-out;
   -ms-transition: 0.3s ease-in-out;
   -o-transition: 0.3s ease-in-out;
-  padding : 10px;
   text-decoration: none;
 }
 
@@ -336,6 +335,33 @@ textarea:focus {
   -o-transform: scale(1.2);
 }
 
+.trashBtn{
+  position: absolute;
+  color : red;
+  right: 170px ;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  text-decoration: none;
+}
+
+.editBtn{
+  position: absolute;
+  right: 210px ;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  text-decoration: none;
+}
+
 .recipeNameBox {
   display: flex;
   flex-direction: column;
@@ -345,7 +371,6 @@ textarea:focus {
 
 .recipeName {
   font-size: 2rem;
-  margin: 0;
   font-weight: 700;
 }
 
@@ -353,6 +378,5 @@ textarea:focus {
 .recipeAuthor {
   font-size: 1rem;
   font-weight: 400;
-  margin-top: 5px;
   color: #555;
 }

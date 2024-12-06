@@ -48,6 +48,7 @@
   <section id="firstPage">
     <div class="container-fluid">
       {% if user.is_authenticated %}
+      <section>
         <div class="ProfileInfo">
           <div class="userImage">
             <img src="{% static '/images/userPic.jpg' %}">
@@ -64,20 +65,38 @@
               <a href="{% url 'change_password' %}" class="changePass"><i class="fa-solid fa-key"></i>   <b>Change Password?</b></a>
             </div>
             <div class="right">
-              <a href="{% url 'liked_recipes_view' %}"><h3>Liked Recipes</h3>
-            </a>
-              {% for recipe in recipes %}
+              <a href="{% url 'liked_recipes_view' %}"><h3>Liked Recipes</h3></a>
+              {% for recipe in liked_recipes %}
                 <div class="recipeDetails">
-                    <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe_name }}">
-                    <a href="{% url 'recipeDetail' id=recipe.id %}">{{ recipe.recipe_name }}</a>
+                  <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe_name }}">
+                  <a href="{% url 'recipeDetail' id=recipe.id %}">{{ recipe.recipe_name }}</a>
                 </div>
-            
               {% empty %}
-                  <p>You have no liked recipes.</p>
+                <p>You have no liked recipes.</p>
               {% endfor %}
-          </div>
+            </div>
           </div>
         </div>
+      </section>
+      <section>
+        <div class="recipe-div">
+          <h3>Your Recipes</h3>
+          <div class="recipes-list">
+            {% for recipe in user_recipes %}
+              <div class="recipeBox">
+                <a href="{% url 'recipeDetail' recipe.id %}">
+                  <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe_name }}">
+                <div class="recipeName">
+                  <h3>{{ recipe.recipe_name }}</h3>
+                </div>
+              </div>
+            {% empty %}
+              <p>You have not created any recipes yet.</p>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+      
       {% else %}
         <div class="container-fluid container2" role="alert">
           <h4>You need to sign in to access this page.</h4>

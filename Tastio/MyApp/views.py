@@ -28,19 +28,19 @@ def registerView(request):
   return render(request, 'register.html')
 
 def profileView(request):
-    if request.user.is_authenticated:
-        # Get the user's liked recipes (limit to 3)
-        liked_recipes = Like.objects.filter(user=request.user).select_related('recipe')[:3]
+    # Get the user's own recipes
+    user_recipes = Recipe.objects.filter(user=request.user)
 
-        # Extract the recipes from the Like instances
-        recipes = [like.recipe for like in liked_recipes]
+    # Get the liked recipes for the user
+    liked_recipes = Recipe.objects.filter(like__user=request.user)
 
-        context = {
-            'recipes': recipes,
-        }
-        return render(request, 'profile.html', context)
-    else:
-        return render(request, 'login.html')
+    context = {
+        'user_recipes': user_recipes,
+        'liked_recipes': liked_recipes,
+    }
+    
+    return render(request, 'profile.html', context)
+
     
 
 def forgotPasswordView(request):

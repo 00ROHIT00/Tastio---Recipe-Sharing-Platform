@@ -139,7 +139,7 @@ body, html {
   flex-direction: column;
 }
 
-.left h3, .right h3{
+.left h3, .right h3, .container-fluid h3{
   font-weight: 700;
 }
 .right h3{
@@ -260,3 +260,80 @@ body, html {
   text-decoration: none;
   color : rgb(123, 0, 0);
 }
+
+
+
+.recipeBox {
+  position: relative;
+  display: inline-block;
+  width: 400px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin: 10px;
+  overflow: hidden;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+}
+
+.recipeBox:hover{
+  transform: scale(1.03);
+  -webkit-transform: scale(1.03);
+  -moz-transform: scale(1.03);
+  -ms-transform: scale(1.03);
+  -o-transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  cursor: pointer;
+}
+.recipeBox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(30%);
+}
+
+.recipeName {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}
+
+.recipeName h3,
+.recipeName p {
+    margin: 0;
+}
+
+.recipe-div h3{
+  text-align: center;
+}
+
+.recipes-list {
+  display: grid;
+  place-items: center;
+}
+
+.recipes-list {
+  display: flex;
+  justify-content: center; 
+}
+
+.recipes-list {
+  display: flex;
+  justify-content: center;  
+  flex-wrap: wrap;
+}
+
+.recipeBox {
+  margin: 10px; 
+} 

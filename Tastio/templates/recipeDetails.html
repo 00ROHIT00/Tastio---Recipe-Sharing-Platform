@@ -74,6 +74,14 @@
           {% else %}
             <a href="{% url 'loginView' %}" class="loginMsg">Log in to interact with this post</a>
           {% endif %}
+
+          <a href="{% url 'bookmark_recipe' recipe.id %}" class="trashBtn">
+            <i class="fa-solid fa-trash"></i>
+          </a>
+
+          <a href="{% url 'bookmark_recipe' recipe.id %}" class="editBtn">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </a>
         </div>
 
         <div class="recipeInfo">
