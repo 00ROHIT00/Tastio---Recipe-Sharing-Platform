@@ -18,10 +18,10 @@
       <a class="nav-link" href="{%url 'adminPanel' %}"><i class="fa-solid fa-house"></i> Home</i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href=""><i class="fa-solid fa-user"></i> Users</i></a>
+      <a class="nav-link" href="{%url 'manage_users' %}"><i class="fa-solid fa-user"></i> Users</i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa-solid fa-carrot"></i> Recipes</i></a>
+      <a class="nav-link" href="{%url 'manage_recipe' %}"><i class="fa-solid fa-carrot"></i> Recipes</i></a>
     </li>
 
     <li class="nav-item ml-auto">
@@ -65,7 +65,7 @@
             <td>{{ user.email }}</td>
             <td>{{ user.date_joined|date:"Y-m-d H:i" }}</td>
             <td>{{ user.last_login|date:"Y-m-d H:i" }}</td>
-            <td><a href="#" class="btn btn-info btn-sm"><i class="fa-solid fa-chart-line"></i> See Activity</a></td>
+            <td><a href="{% url 'activity'%}" class="btn btn-info btn-sm"><i class="fa-solid fa-chart-line"></i> See Activity</a></td>
             <!-- Delete Button with data-target pointing to the modal ID and passing user ID -->
             <td><a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-userid="{{ user.id }}"><i class="fa-solid fa-trash"></i> Delete</a></td>
           </tr>

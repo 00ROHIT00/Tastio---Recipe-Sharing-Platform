@@ -80,89 +80,83 @@ body{
 }
 
 .intro{
-  margin-top: 3rem;
-  font-weight: 1000;
-  margin-bottom: auto;
-}
-.mainDiv{
-  width : 100vw;
-  display : flex;
-  flex-direction: row;
+  margin-top: 25px;;
+  font-weight: 700;
+  font-size: 2rem; 
 }
 
-.users, .recipes{
+.numberContents{
+  width : 100vw;
+  height : 8rem;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+.recipes, .comments{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
+  margin-left: 10px;
+  margin-right: 10px;
   border-radius: 5px;
+  -webkit-border-radius:;
+  -moz-border-radius:;
+  -ms-border-radius:;
+  -o-border-radius:;
   color: white;
-  font-size: 2.5rem;
-  width: 50%;
-  height: 20rem;
-  text-align: center;
+}
+
+.numberContents p { 
+  font-size: 3rem;
   font-weight: 700;
-  margin: 20px;
+}
+
+
+.userContent{
+  display : flex;
+  flex-direction: row;
+  width : 100vw;
+}
+
+.UserRecipes, .UserCommenets{
+  width: 50%;
+  margin : 10px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color : white;
+  border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
-  transition: .3s ease-in-out;
-  -webkit-transition: .3s ease-in-out;
-  -moz-transition: .3s ease-in-out;
-  -ms-transition: .3s ease-in-out;
-  -o-transition: .3s ease-in-out;
-  text-decoration: none;
 }
 
-.users:hover, .recipes:hover{
-  background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
-  transform: scale(102%);
-  -webkit-transform: scale(102%);
-  -moz-transform: scale(102%);
-  -ms-transform: scale(102%);
-  -o-transform: scale(102%);
-  cursor: pointer;
-  color: white;
-  text-decoration: none;
+
+.UserRecipes h3, .UserCommenets h3, .details h3{
+  font-weight: 600;
 }
 
-.count{
+
+.wrapper { 
+  width: 100vw;
+}
+.details{
+  margin-left: 10px;
+  margin-right: 10px;
+  padding : 5px;
+  color : white;
+  text-align: center;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
-  color: white;
-  width : 100%;
-  text-align: center;
-  margin-left : 20px;
-  margin-right : 20px;
-  height : 15rem;
-  font-size: 2rem;
-  font-weight: 600;
-
+  -webkit-border-radius:;
+  -moz-border-radius:;
+  -ms-border-radius:;
+  -o-border-radius:;
+  width: 100vw;
 }
 
-.subDiv{
-  display : flex;
-  flex-direction: row;
-}
-.usersCount,.recipeCount{
-  width : 50%;
-  height : 10rem;
-}
-.recipeCount{
-  border-left : white 1px solid;
-}
-
-.footer{
-  margin-top: auto;
-}
-
-span{
-  font-size: 5rem;
-  font-weight: 700;
-}

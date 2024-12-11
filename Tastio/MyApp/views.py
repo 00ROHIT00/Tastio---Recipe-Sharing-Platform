@@ -84,25 +84,6 @@ def manage_recipes_view(request):
     recipes = Recipe.objects.all()
     return render(request, 'manage_recipes.html', {'recipes': recipes})
 
-# def delete_recipe(request, recipe_id):
-#     recipe = get_object_or_404(Recipe, id=recipe_id)
-#     recipe.delete()
-#     return redirect('manage_recipes')
-
-
-@csrf_exempt
-def delete_recipe(request, recipe_id):
-    if request.method == 'DELETE':
-        try:
-            recipe = get_object_or_404(Recipe, id=recipe_id)
-            recipe.delete()
-            return JsonResponse({'success': True, 'message': 'Recipe deleted successfully.'})
-        except Exception as e:
-            return JsonResponse({'success': False, 'error': str(e)})
-    else:
-        return JsonResponse({'success': False, 'error': 'Invalid request method.'})
-
-
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -400,7 +381,7 @@ def liked_recipes_view(request):
         return render(request, 'login.html')
     
 @csrf_exempt
-def delete_recipe(request, recipe_id):
+def delete_recipe(request, recipe_id): 
     if request.method == 'DELETE':
         try:
             recipe = get_object_or_404(Recipe, id=recipe_id)
@@ -443,3 +424,7 @@ def update_recipe(request, recipe_id):
 
     # If the request is not POST (e.g., GET), show the update form again
     return render(request, 'create.html', {'recipe': recipe})
+
+
+def activity(request):
+  return render(request, 'activity.html')

@@ -17,10 +17,10 @@
       <a class="nav-link" href="{%url 'adminPanel' %}"><i class="fa-solid fa-house"></i> Home</i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href=""><i class="fa-solid fa-user"></i> Users</i></a>
+      <a class="nav-link" href="{%url 'manage_users' %}"><i class="fa-solid fa-user"></i> Users</i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa-solid fa-carrot"></i> Recipes</i></a>
+      <a class="nav-link" href="{%url 'manage_recipe' %}"><i class="fa-solid fa-carrot"></i> Recipes</i></a>
     </li>
 
     <li class="nav-item ml-auto">
@@ -53,7 +53,7 @@
       <p>Analytics</p>
       <div class="subDiv">
         <div class="usersCount"> Total Users <br><span>{{ total_users }}</span> </div>
-        <div class="recipeCount"> Total Users <br><span>{{ total_recipes }}</span>  </div>
+        <div class="recipeCount"> Total Recipes <br><span>{{ total_recipes }}</span>  </div>
       </div>
     </div>
     <p class="footer">TASTIO | ADMIN</p>
