@@ -44,6 +44,23 @@
   -o-transform: scale(115%);
   color : var(--navbar-color);
 }
+
+.tastio-navbar{
+  font-weight: 1000;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+}
+
+.tastio-navbar:hover{
+  transform: scale((105%));
+  -webkit-transform: scale((105%));
+  -moz-transform: scale((105%));
+  -ms-transform: scale((105%));
+  -o-transform: scale((105%));
+}
 .container-fluid {
   background: var(--background-color);
   color: var(--text-color);

@@ -146,13 +146,10 @@ def login_user(request):
          if username == 'admin' and password == 'admin':
             return redirect('adminPanel')
          
-         return redirect('profileView')
+         return redirect('index')
       else:
          messages.error(request, "Invalid Username Or Password!")
    return render(request, 'login.html')
-
-
-
 
 def generate_otp():
     return random.randint(100000, 999999)
@@ -380,3 +377,11 @@ def liked_recipes_view(request):
         return render(request, 'liked_recipes.html', context)
     else:
         return render(request, 'login.html')
+    
+@login_required
+def delete_recipe(request, recipe_id):
+    if request.method == "DELETE":
+        recipe = get_object_or_404(Recipe, id=recipe_id, user=request.user)
+        recipe.delete()
+        return JsonResponse({"success": True})
+    return JsonResponse({"success": False, "error": "Invalid request method"}, status=400)

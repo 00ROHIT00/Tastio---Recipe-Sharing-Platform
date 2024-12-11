@@ -55,9 +55,19 @@
             <h1 class="recipeName">{{ recipe.recipe_name }}</h1>
             <h6 class="recipeAuthor">by {{ recipe.user.first_name|default:recipe.user.username }}</h6>
           </div>
-
-          <!-- Bookmark Icon -->
+          <!-- Conditional Display of Buttons -->
           {% if user.is_authenticated %}
+          {% if user == recipe.user %}
+            <!-- Display Edit and Delete icons for the recipe author -->
+            <a href="" class="editBtn">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <a href="#" class="trashBtn" onclick="confirmDelete({{ recipe.id }})">
+              <i class="fa-solid fa-trash"></i>
+            </a>
+            
+          {% else %}
+            <!-- Display Like and Bookmark buttons for signed-in users who are not the author -->
             {% if is_saved %}
               <a href="{% url 'unbookmark_recipe' recipe.id %}" class="saveBtn">
                 <i class="fa-solid fa-bookmark"></i>
@@ -67,22 +77,16 @@
                 <i class="fa-regular fa-bookmark"></i>
               </a>
             {% endif %}
-
-            <!-- Like Button -->
             <i class="fa-solid fa-heart like-icon {% if user_like %}liked{% else %}unliked{% endif %}" 
-               onclick="toggleLike({{ recipe.id }})"></i>
+              onclick="toggleLike({{ recipe.id }})"></i>
+          {% endif %}
           {% else %}
-            <a href="{% url 'loginView' %}" class="loginMsg">Log in to interact with this post</a>
+          <!-- Prompt for unauthenticated users -->
+          <a href="{% url 'loginView' %}" class="loginMsg">Log in to interact with this post</a>
           {% endif %}
 
-          <a href="{% url 'bookmark_recipe' recipe.id %}" class="trashBtn">
-            <i class="fa-solid fa-trash"></i>
-          </a>
-
-          <a href="{% url 'bookmark_recipe' recipe.id %}" class="editBtn">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </a>
-        </div>
+          
+          </div>
 
         <div class="recipeInfo">
           <div class="ingredients">
@@ -151,5 +155,27 @@
       });
     }
   </script>
+  <script>
+    function confirmDelete(recipeId) {
+      if (confirm("Are you sure you want to delete this recipe? This action cannot be undone.")) {
+        fetch(`/delete_recipe/${recipeId}/`, {
+          method: 'DELETE',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert("Recipe deleted successfully!");
+            window.location.href = "{% url 'recipeView' %}"; // Redirect to the recipe list page
+          } else {
+            alert("Error deleting recipe. Please try again.");
+          }
+        });
+      }
+    }
+  </script>  
 </body>
 </html>

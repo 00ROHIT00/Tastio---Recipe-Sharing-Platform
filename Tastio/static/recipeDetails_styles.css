@@ -316,7 +316,7 @@ textarea:focus {
 
 .saveBtn{
   position: absolute;
-  right: 130px ;
+  right: 130px;
   font-size: 1.5rem;
   cursor: pointer;
   transition: 0.3s ease-in-out;
@@ -338,7 +338,7 @@ textarea:focus {
 .trashBtn{
   position: absolute;
   color : red;
-  right: 170px ;
+  right: 70px ;
   font-size: 1.5rem;
   cursor: pointer;
   transition: 0.3s ease-in-out;
@@ -351,7 +351,7 @@ textarea:focus {
 
 .editBtn{
   position: absolute;
-  right: 210px ;
+  right: 130px ;
   font-size: 1.5rem;
   cursor: pointer;
   transition: 0.3s ease-in-out;
