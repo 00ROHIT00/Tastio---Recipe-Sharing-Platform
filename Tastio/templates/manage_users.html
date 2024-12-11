@@ -65,8 +65,11 @@
             <td>{{ user.email }}</td>
             <td>{{ user.date_joined|date:"Y-m-d H:i" }}</td>
             <td>{{ user.last_login|date:"Y-m-d H:i" }}</td>
-            <td><a href="{% url 'activity'%}" class="btn btn-info btn-sm"><i class="fa-solid fa-chart-line"></i> See Activity</a></td>
-            <!-- Delete Button with data-target pointing to the modal ID and passing user ID -->
+            <td>
+              <a href="{% url 'activity' user.id %}" class="btn btn-info btn-sm">
+                <i class="fa-solid fa-chart-line"></i> See Activity
+              </a>
+            </td>
             <td><a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-userid="{{ user.id }}"><i class="fa-solid fa-trash"></i> Delete</a></td>
           </tr>
           {% endfor %}

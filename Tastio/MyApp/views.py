@@ -426,5 +426,32 @@ def update_recipe(request, recipe_id):
     return render(request, 'create.html', {'recipe': recipe})
 
 
-def activity(request):
-  return render(request, 'activity.html')
+# def activity(request, user_id):
+#     user = get_object_or_404(User, id=user_id)
+#     liked_recipes = Recipe.objects.filter(user=user)  # Adjust logic for "liked" if needed
+#     user_comments = [
+#         # Placeholder comments; replace with actual comment retrieval logic if implemented
+#         "Looks Super Cool",
+#         "Looks Cool",
+#         "Looks Super Cool, nevermind I lied",
+#         "Looks Ass",
+#         "Looks like shit, super shit!",
+#     ]
+#     context = {
+#         'user': user,
+#         'liked_recipes': liked_recipes,
+#         'comments': user_comments,
+#     }
+#     return render(request, 'activity.html', context)
+
+def activity(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    liked_recipes = Recipe.objects.filter(user=user)  # Update if likes are stored differently
+    user_comments = Comment.objects.filter(user=user)  # Fetch comments for the selected user
+    
+    context = {
+        'user': user,
+        'liked_recipes': liked_recipes,
+        'comments': user_comments,
+    }
+    return render(request, 'activity.html', context)

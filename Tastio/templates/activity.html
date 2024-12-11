@@ -36,54 +36,48 @@
   </ul>
 
   <div class="container-fluid">
-    <h1 class="intro">User's Activity</h1>
+    <h1 class="intro">{{ user.username }}'s Activity</h1>
     <div class="numberContents">
-
       <div class="recipes">
-        <h5>Total Recipes</h5> <br>
-        <p>3</p>
+        <h5>Total Recipes</h5>
+        <p>{{ liked_recipes.count }}</p>
       </div>
-
       <div class="comments">
-        <h5>Total Comments</h5> <br>
-        <p>9</p>
+        <h5>Total Comments</h5>
+        <p>{{ comments|length }}</p>
       </div>
-
     </div>
     <div class="userContent">
       <div class="UserRecipes">
         <h3>Liked Recipes</h3>
         <div class="list">
-          <p>Mysore Masala Dosa</p>
-          <p>Alfam Mandhi</p>
-          <p>Kothu Porotta</p>
-          <p>Porotta Roll</p>
-          <p>Brownies</p>
+          {% for recipe in liked_recipes %}
+            <p>{{ recipe.recipe_name }}</p>
+          {% empty %}
+            <p>No liked recipes found.</p>
+          {% endfor %}
         </div>
       </div>
-  
       <div class="UserCommenets">
         <h3>User's Comments</h3>
         <div class="commentsList">
-          <p>"Looks Super Cool"</p>
-          <p>"Looks Cool"</p>
-          <p>"Looks Super Cool, nevermind I lied"</p>
-          <p>"Looks Ass"</p>
-          <p>"Looks like shit, super shit!"</p>
+          {% for comment in comments %}
+            <p>{{ comment.text }}</p> 
+          {% empty %}
+            <p>No comments found.</p>
+          {% endfor %}
         </div>
       </div>
     </div>
     <div class="wrapper">
-
       <div class="details">
         <h3>User's Details</h3>
-        <p>First Name: Rohit</p>
-        <p>Last Name: R</p>
-        <p>Username : rohit</p>
-        <p>Email : rohithr01092003@gmail.com</p>
-        <p>Account Created: 2024-11-19 06:15:10.314159</p>
+        <p>First Name: {{ user.first_name }}</p>
+        <p>Last Name: {{ user.last_name }}</p>
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Account Created: {{ user.date_joined }}</p>
       </div>
-
     </div>
   </div>
 
