@@ -59,7 +59,7 @@
           {% if user.is_authenticated %}
           {% if user == recipe.user %}
             <!-- Display Edit and Delete icons for the recipe author -->
-            <a href="" class="editBtn">
+            <a href="{% url 'update' recipe.id %}" class="editBtn">
               <i class="fa-solid fa-pen-to-square"></i>
             </a>
             <a href="#" class="trashBtn" onclick="confirmDelete({{ recipe.id }})">

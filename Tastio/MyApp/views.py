@@ -385,3 +385,61 @@ def delete_recipe(request, recipe_id):
         recipe.delete()
         return JsonResponse({"success": True})
     return JsonResponse({"success": False, "error": "Invalid request method"}, status=400)
+
+
+
+# def update_recipe(request, recipe_id):
+#     recipe = get_object_or_404(Recipe, id=recipe_id)
+#     if request.method == 'POST':
+#         # Get the data from the form
+#         recipe_name = request.POST.get('recipeName')
+#         category = request.POST.get('category')
+#         ingredients = request.POST.get('ingredients')
+#         description = request.POST.get('description')
+#         time = request.POST.get('time')
+#         image = request.FILES.get('image')
+
+#         # Update the recipe fields
+#         recipe.recipe_name = recipe_name
+#         recipe.category = category
+#         recipe.ingredients = ingredients
+#         recipe.description = description
+#         recipe.time = time
+#         if image:
+#             recipe.image = image  # Update image if a new one is uploaded
+
+#         # Save the updated recipe
+#         recipe.save()
+
+#     return render(request, 'create.html', {'recipe': recipe})
+
+
+def update_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    
+    if request.method == 'POST':
+        # Get the data from the form
+        recipe_name = request.POST.get('recipeName')
+        category = request.POST.get('category')
+        ingredients = request.POST.get('ingredients')
+        description = request.POST.get('description')
+        time = request.POST.get('time')
+        image = request.FILES.get('image')
+
+        # Update the recipe fields
+        recipe.recipe_name = recipe_name
+        recipe.category = category
+        recipe.ingredients = ingredients
+        recipe.description = description
+        recipe.time = time
+        if image:
+            recipe.image = image  # Update image if a new one is uploaded
+
+        # Save the updated recipe
+        recipe.save()
+
+        # Redirect to the recipe detail page
+        return redirect('recipe_detail', id=recipe.id)
+
+    # If the request is not POST (e.g., GET), show the update form again
+    return render(request, 'create.html', {'recipe': recipe})

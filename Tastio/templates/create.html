@@ -57,16 +57,18 @@
         <p>Make sure to also include all the measures used in the recipe. This will help users to easily follow your recipe. Also make sure to add a image of your delicious disk!</p>
       </div>
       <div class="recipe">
-        <form action="{% url 'create' %}" method="POST" onsubmit="return validateForm()" enctype="multipart/form-data">
+        
+        <form action="{% if recipe.id %}{% url 'update' recipe.id %}{% else %}{% url 'create' %}{% endif %}" method="POST" onsubmit="return validateForm()" enctype="multipart/form-data">
           {% csrf_token %}
           <p class="textLabel">Enter A Name For Your Recipe</p>
-          <input type="text" name="recipeName" class = 'recipeName' required> <br>
-
+          <input type="text" name="recipeName" class="recipeName" value="{{ recipe.recipe_name }}" required> <br>
+        
           <p class="textLabel">Select A Category For Your Recipe:</p>
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span id="dropdownSelected">Categories</span>
+              <span id="dropdownSelected">{{ recipe.category|default:"Categories" }}</span>
             </button>
+            
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" onclick="selectCategory('Indian')">Indian</a>
               <a class="dropdown-item" onclick="selectCategory('Chinese')">Chinese</a>
@@ -75,29 +77,36 @@
               <a class="dropdown-item" onclick="selectCategory('Taiwanese')">Taiwanese</a>
             </div>
           </div>
-
+        
           <p class="textLabel">Enter The Time Required For Your Recipe: </p>
-          <input type="text" name="time" class = 'time' required> <br>
-
+          <input type="text" name="time" class="time" value="{{ recipe.time }}" required> <br>
+        
           <input type="hidden" name="category" id="category" required>
-          
-
+        
           <p class="textLabel">Enter The Ingredients And Tools For Your Recipe</p>
-          <input type="text" name="ingredients" class = 'ingredients' required> <br>
-
+          <input type="text" name="ingredients" class="ingredients" value="{{ recipe.ingredients }}" required> <br>
+        
           <p class="textLabel">Enter A Description For Your Recipe</p>
           <div id="editor-wrapper">
             <div id="editor">
-                
+              {{ recipe.description|safe }}
             </div>
           </div>
-
+        
           <input type="hidden" name="description" id="description" required> <br>
           <p class="textLabel">Choose An Image For Your Recipe:</p>
-          <input type="file" class = 'imageFile'  name="image" required accept=".jpg, .jpeg, .png"> <br>
-
-          <button type="submit" class="btn btn-primary">Submit Recipe!</button>
+          <input type="file" class='imageFile' name="image" accept=".jpg, .jpeg, .png"> <br>
+          
+          <button type="submit" class="btn btn-primary">
+            {% if recipe.id %}
+              Update Recipe!
+            {% else %}
+              Submit Recipe!
+            {% endif %}
+          </button>
         </form>
+        
+
       </div>
       <br>
       {% else %}
@@ -116,29 +125,24 @@
   <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 
   <script>
-    const quill = new Quill('#editor', {
-      placeholder: 'Make Sure To Format Your Recipe Description For Better Readability!\nAnd Use Heading 2 For Subheadings!',
-      theme: 'snow'
+    // Initialize Quill editor
+    var quill = new Quill('#editor', {
+        theme: 'snow'
     });
 
-    // Function to validate the form
-  function validateForm() {
-    // Get the editor content as plain text
-    const editorContent = quill.getText().trim(); // Remove any whitespace
+    // Populate Quill editor with pre-filled data for editing (if available)
+    document.addEventListener('DOMContentLoaded', function() {
+        const descriptionInput = document.getElementById('description').value;
+        if (descriptionInput) {
+            quill.root.innerHTML = descriptionInput; // Pre-fill Quill editor with the description
+        }
+    });
 
-    // Get the hidden input field
-    const descriptionInput = document.getElementById('description');
-
-    // Check if editor content is empty
-    if (editorContent.length === 0) {
-      alert("Please enter a description for your recipe.");
-      return false; // Prevent form submission
-    } else {
-      // Update the hidden input with Quill's HTML content
-      descriptionInput.value = quill.root.innerHTML;
-      return true; // Allow form submission
-    }
-  }
+    // Update hidden input field when submitting the form
+    document.querySelector('form').addEventListener('submit', function() {
+        const quillContent = quill.root.innerHTML;
+        document.getElementById('description').value = quillContent;
+    });
   </script>
 
 <script>
