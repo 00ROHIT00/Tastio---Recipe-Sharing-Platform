@@ -11,7 +11,29 @@
 </head>
 <body>
   <ul class="nav custom">
-    <!-- Navigation items... -->
+    <li class="nav-item">
+      <a class="nav-link active tastio-navbar" href="{%url 'index' %}">TASTiO!</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{%url 'adminPanel' %}"><i class="fa-solid fa-house"></i> Home</i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href=""><i class="fa-solid fa-user"></i> Users</i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa-solid fa-carrot"></i> Recipes</i></a>
+    </li>
+
+    <li class="nav-item ml-auto">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'profileView'%}"><i class="fa-solid fa-user"></i> {{ user.first_name }} </a>
+      </li>
+    <a class="nav-link space" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+  {% else %}
+    <a class="nav-link" href="{% url 'loginView' %}"><i class="fa-solid fa-user"></i> Log In / Sign Up</a>
+  {% endif %}
+    </li>
   </ul>
 
   <div class="container-fluid">

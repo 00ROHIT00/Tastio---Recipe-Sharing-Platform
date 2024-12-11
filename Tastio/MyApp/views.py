@@ -17,6 +17,7 @@ from .models import Recipe, Like
 from .models import Recipe, Comment
 from django.http import JsonResponse
 from .models import SavedRecipe, Recipe
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 def index(request):
   return render(request, 'index.html')
@@ -83,10 +84,23 @@ def manage_recipes_view(request):
     recipes = Recipe.objects.all()
     return render(request, 'manage_recipes.html', {'recipes': recipes})
 
+# def delete_recipe(request, recipe_id):
+#     recipe = get_object_or_404(Recipe, id=recipe_id)
+#     recipe.delete()
+#     return redirect('manage_recipes')
+
+
+@csrf_exempt
 def delete_recipe(request, recipe_id):
-    recipe = get_object_or_404(Recipe, id=recipe_id)
-    recipe.delete()
-    return redirect('manage_recipes')
+    if request.method == 'DELETE':
+        try:
+            recipe = get_object_or_404(Recipe, id=recipe_id)
+            recipe.delete()
+            return JsonResponse({'success': True, 'message': 'Recipe deleted successfully.'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    else:
+        return JsonResponse({'success': False, 'error': 'Invalid request method.'})
 
 
 from django.shortcuts import render, redirect
@@ -265,7 +279,14 @@ def create(request):
     return render(request, 'create.html')
 
 def adminPanel(request):
-    return render(request, 'admin.html')
+    total_users = User.objects.count()  # Count total users
+    total_recipes = Recipe.objects.count()  # Count total recipes
+
+    context = {
+        'total_users': total_users,
+        'total_recipes': total_recipes,
+    }
+    return render(request, 'admin.html', context)
 
 def delete_user(request):
     if request.method == "POST":
@@ -378,40 +399,19 @@ def liked_recipes_view(request):
     else:
         return render(request, 'login.html')
     
-@login_required
+@csrf_exempt
 def delete_recipe(request, recipe_id):
-    if request.method == "DELETE":
-        recipe = get_object_or_404(Recipe, id=recipe_id, user=request.user)
-        recipe.delete()
-        return JsonResponse({"success": True})
-    return JsonResponse({"success": False, "error": "Invalid request method"}, status=400)
-
-
-
-# def update_recipe(request, recipe_id):
-#     recipe = get_object_or_404(Recipe, id=recipe_id)
-#     if request.method == 'POST':
-#         # Get the data from the form
-#         recipe_name = request.POST.get('recipeName')
-#         category = request.POST.get('category')
-#         ingredients = request.POST.get('ingredients')
-#         description = request.POST.get('description')
-#         time = request.POST.get('time')
-#         image = request.FILES.get('image')
-
-#         # Update the recipe fields
-#         recipe.recipe_name = recipe_name
-#         recipe.category = category
-#         recipe.ingredients = ingredients
-#         recipe.description = description
-#         recipe.time = time
-#         if image:
-#             recipe.image = image  # Update image if a new one is uploaded
-
-#         # Save the updated recipe
-#         recipe.save()
-
-#     return render(request, 'create.html', {'recipe': recipe})
+    if request.method == 'DELETE':
+        try:
+            recipe = get_object_or_404(Recipe, id=recipe_id)
+            recipe.delete()
+            return JsonResponse({'success': True, 'message': 'Recipe deleted successfully.'})
+        except Exception as e:
+            print(f"Error deleting recipe: {e}")  # Log the error in the server console
+            return JsonResponse({'success': False, 'error': str(e)})
+    else:
+        print("Invalid request method.")  # Log unexpected request methods
+        return JsonResponse({'success': False, 'error': 'Invalid request method.'})
 
 
 def update_recipe(request, recipe_id):

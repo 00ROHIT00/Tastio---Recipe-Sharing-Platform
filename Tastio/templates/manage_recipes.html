@@ -11,7 +11,29 @@
 </head>
 <body>
   <ul class="nav custom">
-    <!-- Navigation items... -->
+    <li class="nav-item">
+      <a class="nav-link active tastio-navbar" href="{%url 'index' %}">TASTiO!</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{%url 'adminPanel' %}"><i class="fa-solid fa-house"></i> Home</i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href=""><i class="fa-solid fa-user"></i> Users</i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa-solid fa-carrot"></i> Recipes</i></a>
+    </li>
+
+    <li class="nav-item ml-auto">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'profileView'%}"><i class="fa-solid fa-user"></i> {{ user.first_name }} </a>
+      </li>
+    <a class="nav-link space" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+  {% else %}
+    <a class="nav-link" href="{% url 'loginView' %}"><i class="fa-solid fa-user"></i> Log In / Sign Up</a>
+  {% endif %}
+    </li>
   </ul>
 
   <div class="container-fluid">
@@ -25,37 +47,21 @@
             <th class="userId">Created By</th>
             <th class="firstName">Recipe Name</th>
             <th class="lastName">Category</th>
-            <th class="username">Ingredients</th>
-            <th class="email">Description</th>
-            <th class="date">Image</th>
-            <th class="login">Total Time</th>
             <th class="login">Created At</th>
-            <th class="delete" style="width: 1%;">Edit</th>
             <th class="delete" style="width: 1%;">Delete</th>
           </tr>
-          <tbody>
-            {% for recipe in recipes %}
+        </thead>
+        <tbody>
+          {% for recipe in recipes %}
             <tr>
               <td>{{ recipe.user.username }}</td>
               <td>{{ recipe.recipe_name }}</td>
               <td>{{ recipe.category }}</td>
-              <td>{{ recipe.ingredients|linebreaks|striptags|safe }}</td>
-              <td>{{ recipe.description|truncatewords:20|striptags|safe }}</td>
-              <td>
-                {% if recipe.image %}
-                <img src="{{ recipe.image.url }}" alt="Recipe Image" style="width: 80px; height: auto;">
-                {% else %}
-                No image
-                {% endif %}
-              </td>
-              <td>{{ recipe.time }} mins</td>
               <td>{{ recipe.created_at|date:"Y-m-d H:i" }}</td>
-              <td><a href="" class="btn btn-warning btn-sm">Edit</a></td>
-              <td><a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this recipe?');">Delete</a></td>
+              <td><button class="btn btn-danger btn-sm" onclick="confirmDelete({{ recipe.id }})">Delete</button></td>
             </tr>
-            {% endfor %}
-          </tbody>
-        </thead>
+          {% endfor %}
+        </tbody>
       </table>
     </div>
   </div>
@@ -64,5 +70,35 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+  <!-- CSRF Token -->
+  <script>
+    const csrfToken = "{{ csrf_token }}";
+
+    function confirmDelete(recipeId) {
+      if (confirm("Are you sure you want to delete this recipe? This action cannot be undone.")) {
+        fetch(`/delete_recipe/${recipeId}/`, {
+          method: 'DELETE',
+          headers: {
+            'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert("Recipe deleted successfully!");
+            window.location.reload(); // Refresh the page to show updated list
+          } else {
+            alert(`Error deleting recipe: ${data.error}`);
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          alert("An unexpected error occurred." + error);
+        });
+      }
+    }
+  </script>
 </body>
 </html>

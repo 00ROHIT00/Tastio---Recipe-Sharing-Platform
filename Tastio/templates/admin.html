@@ -9,52 +9,56 @@
     <title>ADMIN | Tasio</title>
 </head>
 <body>
-    <ul class="nav custom">
-        <li class="nav-item">
-          <a class="nav-link active tastio-navbar" href="{%url 'index' %}">TASTiO!</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa-solid fa-house"></i> Home</i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#find_more"><i class="fa-solid fa-address-card"></i> About Us</i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'recipeView'%}"><i class="fa-solid fa-bowl-food"></i> Recipes</a>
-        </li>
-    
-        <li class="nav-item ml-auto">
-          <!-- {% if user.is_authenticated %}  -->
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'create'%}"><i class="fa-solid fa-circle-plus"></i> Create Recipe </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'profileView'%}"><i class="fa-solid fa-user"></i> {{ user.first_name }} </a>
-          </li>
-        <a class="nav-link space" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
-      <!-- {% else %} -->
-        <a class="nav-link" href="{% url 'loginView' %}"><i class="fa-solid fa-user"></i> Log In / Sign Up</a>
-      <!-- {% endif %} -->
-        </li>
-      </ul>
-      <div class="container-fluid">
-        <h1>WELCOME, ADMIN!</h1>
-        <div class="panel">
-          <div class="users">
-            <div class="background" style="background-image: url('{% static 'images/admin_users.png' %}');"></div>
-            <a href="{% url 'manage_users' %}">Manage Users</a>
-        </div>
+  <ul class="nav custom">
+    <li class="nav-item">
+      <a class="nav-link active tastio-navbar" href="{%url 'index' %}">TASTiO!</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{%url 'adminPanel' %}"><i class="fa-solid fa-house"></i> Home</i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href=""><i class="fa-solid fa-user"></i> Users</i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa-solid fa-carrot"></i> Recipes</i></a>
+    </li>
 
-        <div class="recipes">
-          <div class="background" style="background-image: url('{% static 'images/admin_recipe.png' %}');"></div>
-          <a href="{% url 'manage_recipe' %}">Manage Recipes</a>
-      </div>
+    <li class="nav-item ml-auto">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'profileView'%}"><i class="fa-solid fa-user"></i> {{ user.first_name }} </a>
+      </li>
+    <a class="nav-link space" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+  {% else %}
+    <a class="nav-link" href="{% url 'loginView' %}"><i class="fa-solid fa-user"></i> Log In / Sign Up</a>
+  {% endif %}
+    </li>
+  </ul>
+  <div class="container-fluid">
+    <h1 class="intro">TASTIO ADMIN DASHBOARD</h1>
+    <div class="mainDiv">
+      <a href="{% url 'manage_users' %}" class="users">
+        <div>
+          Manage Users
         </div>
+      </a>
+
+      <a href="{% url 'manage_recipe' %}" class="recipes"> 
+        <div>
+          Manage Recipes
+        </div>
+      </a>
+    </div>
+    <div class="count">
+      <p>Analytics</p>
+      <div class="subDiv">
+        <div class="usersCount"> Total Users <br><span>{{ total_users }}</span> </div>
+        <div class="recipeCount"> Total Users <br><span>{{ total_recipes }}</span>  </div>
       </div>
-       
- 
- 
- 
+    </div>
+    <p class="footer">TASTIO | ADMIN</p>
+  </div>
+  </footer>
        <!-- FONT AWESOME -->
     <script src="https://kit.fontawesome.com/ac8010ba48.js" crossorigin="anonymous"></script> 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
