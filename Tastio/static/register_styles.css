@@ -26,7 +26,7 @@
   justify-content: center;
   flex-direction: column;
   min-height: 100vh;
-  padding-top: 70px; /* Add space for the fixed navbar */
+  padding-top: 70px; 
 }
 
 .custom {
@@ -37,7 +37,6 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  /* padding-bottom: 15px; */
 }
 
 .custom a {
@@ -122,7 +121,6 @@
   color: #FF00FF;
 }
 
-/* Password Input Field and Eye Icon */
 .password-container {
   position: relative;
   width: 100%;
@@ -131,7 +129,7 @@
 
 .password-container input {
   width: 100%;
-  padding: 12px 40px 12px 12px; /* Padding for eye icon space */
+  padding: 12px 40px 12px 12px;
   border: 1px solid #2E1F27;
   border-radius: 5px;
   background: transparent;

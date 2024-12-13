@@ -158,13 +158,12 @@ body{
   box-shadow: 0px 0px 30px 11px rgba(0,0,0,0.35);
 }
 
-/* SECOND PAGE */
+
 .container2{
   background : linear-gradient(180deg, #E7E393,#ffb458 )
 }
 
 .aboutUs-para{
-  /* border : lime 2px solid; */
   width: 85%;
   padding-top : 2%;
   padding-bottom: 3%;
@@ -221,15 +220,13 @@ body{
   
 }
 
-/*MEDIA QUERIES*/
-
 @media (max-width: 768px) {
   .tastio-content {
-    flex-direction: column; /* Stack elements vertically on smaller screens */
+    flex-direction: column; 
   }
 
   .intro-image {
-    width: 100%; /* Adjust image width for smaller screens */
-    margin-top: 20px; /* Add some spacing above the image */
+    width: 100%;
+    margin-top: 20px; 
   }
 }

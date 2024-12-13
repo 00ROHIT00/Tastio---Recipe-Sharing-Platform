@@ -79,35 +79,59 @@
       {% endfor %}
       {% endif %}
     </div>
-
     <script>
       function validateForm() {
+        const firstName = document.getElementById("firstName").value;
+        const lastName = document.getElementById("lastName").value;
+        const email = document.getElementById("email").value;
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
         const confirmPassword = document.getElementById("confirmPassword").value;
+    
+       
+        const nameRegex = /^[A-Za-z\s]+$/; 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
 
-        // Check if username and password are the same
+        if (!nameRegex.test(firstName)) {
+          alert("First Name must contain only letters and spaces.");
+          return false;
+        }
+    
+
+        if (!nameRegex.test(lastName)) {
+          alert("Last Name must contain only letters and spaces.");
+          return false;
+        }
+    
+
+        if (!emailRegex.test(email)) {
+          alert("Please enter a valid email address.");
+          return false;
+        }
+    
+
         if (username === password) {
           alert("Username and Password cannot be the same.");
           return false;
         }
-
-        // Check if password and confirm password match
+    
+  
         if (password !== confirmPassword) {
           alert("Passwords do not match.");
           return false;
         }
-
-        // Check password length
+    
+        
         if (password.length < 8) {
           alert("Password must be at least 8 characters long.");
           return false;
         }
-
-        // All checks passed
+    
         return true;
       }
     </script>
+    
 
     <script>
       function togglePassword(fieldId) {

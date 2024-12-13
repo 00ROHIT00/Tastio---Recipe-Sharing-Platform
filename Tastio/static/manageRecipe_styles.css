@@ -114,8 +114,8 @@ th{
 .activity, .delete {
   white-space: nowrap;
   text-align: center;
-  width: auto; /* Let the browser fit the content naturally */
-  padding: 0 5px; /* Adjust padding for spacing */
+  width: auto; 
+  padding: 0 5px;
 }
 
 tr, th, td{

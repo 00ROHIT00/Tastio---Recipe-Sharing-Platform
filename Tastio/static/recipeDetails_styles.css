@@ -64,7 +64,7 @@ body, html {
   color: var(--text-color);
   min-height: 100vh;
   max-width: 100%;
-  padding-top: 80px; /* Space from navbar */
+  padding-top: 80px; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,7 +106,6 @@ body, html {
 }
 
 .ingredients {
-  /* border : 2px solid lime; */
   width : 100vw;
   text-align: center;
   border-bottom: 1px solid black;
@@ -139,12 +138,12 @@ body, html {
 
 
 .actualRecipe img {
-  width: 100%; /* Makes the image take the full width of its container */
-  max-width: 600px; /* Set a maximum width to prevent images from getting too large */
-  height: auto; /* Maintain aspect ratio */
-  object-fit: cover; /* Ensures the image covers the container without distortion */
-  display: block; /* Ensures the image doesn't create unwanted gaps or spacing */
-  margin: 0 auto; /* Centers the image horizontally */
+  width: 100%; 
+  max-width: 600px; 
+  height: auto; 
+  object-fit: cover; 
+  display: block; 
+  margin: 0 auto;
 }
 
 .actualRecipe img{
@@ -269,13 +268,13 @@ body, html {
 
 
 textarea {
-  width: 70%; /* Adjust width as needed */
+  width: 70%; 
   height: 100px;
   padding: 10px;
   border: 2px solid black;
   border-radius: 8px;
   background-color: transparent;
-  color: var(--text-color); /* Text color */
+  color: var(--text-color); 
   font-size: 1rem;
   resize: none;
   margin-bottom: 15px;
@@ -283,7 +282,7 @@ textarea {
 
 textarea:focus {
   outline: none;
-  border-color: #775065; /* Change border color when focused */
+  border-color: #775065; 
 }
 
 .commentBtn {

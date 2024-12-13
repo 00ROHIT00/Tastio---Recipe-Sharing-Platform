@@ -32,10 +32,9 @@ def registerView(request):
 def profileView(request):
     if not request.user.is_authenticated:
         return redirect('noAccess')    
-    # Get the user's own recipes
+
     user_recipes = Recipe.objects.filter(user=request.user)
 
-    # Get the liked recipes for the user
     liked_recipes = Recipe.objects.filter(like__user=request.user)
 
     context = {
@@ -53,9 +52,6 @@ def forgotPasswordView(request):
 def resetView(request):
    return render(request, 'reset.html')
 
-# def recipeView(request):
-#     recipes = Recipe.objects.all()
-#     return render(request, 'recipes.html', {'recipes': recipes})
 
 def recipeView(request):
     recipes = Recipe.objects.annotate(likes_count=Count('like'))
@@ -138,7 +134,7 @@ def register_user(request):
         user.save()
 
         messages.success(request, "Registration successful! You can now log in.")
-        return redirect('loginView')  # Redirect to the login page
+        return redirect('loginView') 
 
     return render(request, 'register.html')
 
@@ -171,11 +167,10 @@ def forgot_password(request):
 
         try:
             user = User.objects.get(username=username, email=email)
-            otp = generate_otp()  # Generate the OTP
-            request.session['otp'] = otp  # Store OTP in session (you might want to use a more secure method)
-            request.session['username'] = username  # Store username for later use
+            otp = generate_otp() 
+            request.session['otp'] = otp  
+            request.session['username'] = username  
             
-            # Send OTP to the user's email
             send_mail(
                 'TASTIO! | Reset Password',
                 f'Hey {username}, \nThis is your OTP code for resetting the password: {otp}.\n Thanks for using TASTiO!',
@@ -185,7 +180,7 @@ def forgot_password(request):
                 fail_silently=False,
             )
             
-            return redirect('otp_verification')  # Redirect to OTP page
+            return redirect('otp_verification') 
 
         except User.DoesNotExist:
             messages.error(request, 'Invalid username or email. Please try again.')
@@ -204,8 +199,7 @@ def otp_verification(request):
             return redirect('reset_password')
         else:
             messages.error(request, "Incorrect OTP. Please try again.")
-            return redirect('otp_verification')  # Stay on the OTP page if incorrect
-
+            return redirect('otp_verification') 
     return render(request, 'otp.html')
 
 def reset_password(request):
@@ -214,7 +208,7 @@ def reset_password(request):
         return redirect('noAccess')
     
     if request.method == 'POST':
-        username = request.session.get('username')  # Get username from session
+        username = request.session.get('username') 
         password = request.POST.get('password')
         confirm_password = request.POST.get('ConfirmPassword')
 
@@ -235,45 +229,45 @@ def reset_password(request):
     
 
 def custom_logout(request):
-    logout(request)  # Log out the user
-    messages.success(request, "You have been logged out successfully.")  # Add a success message
+    logout(request) 
+    messages.success(request, "You have been logged out successfully.")  
     return redirect('index')
 
 
 def create(request):
     if request.method == 'POST':
-        # Retrieve form data from the request
+        
         recipe_name = request.POST['recipeName']
         category = request.POST['category']
         ingredients = request.POST['ingredients']
         description = request.POST['description']
         image = request.FILES.get('image')
-        time = request.POST.get('time')  # New time field
+        time = request.POST.get('time')  
 
-        # Validate form fields, including time
+      
         if not all([recipe_name, category, ingredients, description, image, time]):
             messages.error(request, "All fields are required.")
             return redirect('create')
 
-        # Save image to the file system (if necessary)
+    
         fs = FileSystemStorage()
         image_name = fs.save(image.name, image)
         image_url = fs.url(image_name)
 
-        # Create and save the recipe object
+      
         try:
             recipe = Recipe.objects.create(
-                user=request.user,  # The logged-in user is the creator of the recipe
+                user=request.user,  
                 recipe_name=recipe_name,
                 category=category,
                 ingredients=ingredients,
                 description=description,
                 image=image_url,
-                time=time  # Store the time in the database
+                time=time  
             )
             recipe.save()
             messages.success(request, "Recipe created successfully!")
-            return redirect('recipeView')  # Redirect to the recipes page or the newly created recipe
+            return redirect('recipeView')  
 
         except ValidationError as e:
             messages.error(request, f"Error: {e}")
@@ -286,8 +280,8 @@ def adminPanel(request):
     if request.user.username != 'admin':
         return redirect('noAccess')
     
-    total_users = User.objects.count()  # Count total users
-    total_recipes = Recipe.objects.count()  # Count total recipes
+    total_users = User.objects.count() 
+    total_recipes = Recipe.objects.count()
 
     context = {
         'total_users': total_users,
@@ -313,13 +307,13 @@ def change_password(request):
         new_password = request.POST.get('password')
         confirm_password = request.POST.get('ConfirmPassword')
         
-        # Check if the user exists and the passwords match
+        
         if username == request.user.username:
             if new_password == confirm_password:
                 user = User.objects.get(username=username)
                 user.set_password(new_password)
                 user.save()
-                update_session_auth_hash(request, user)  # Keeps the user logged in after password change
+                update_session_auth_hash(request, user) 
                 messages.success(request, 'Your password was successfully updated!')
                 return redirect('profileView')
             else:
@@ -336,7 +330,7 @@ def like_recipe(request, recipe_id):
     like, created = Like.objects.get_or_create(user=request.user, recipe=recipe)
 
     if not created:
-        # If the like already exists, remove it (unlike)
+        
         like.delete()
 
     return redirect('recipe_detail', recipe_id=recipe.id)
@@ -349,19 +343,19 @@ def add_comment(request, recipe_id):
         if comment_text:
             comment = Comment.objects.create(recipe=recipe, user=request.user, text=comment_text)
             comment.save()
-        return redirect('recipe_details', recipe_id=recipe.id)  # Redirect back to the recipe page
+        return redirect('recipe_details', recipe_id=recipe.id)  
     
 @login_required
 def bookmark_recipe(request, recipe_id):
     recipe = Recipe.objects.get(id=recipe_id)
     
-    # Check if the recipe is already bookmarked
+    
     if not SavedRecipe.objects.filter(user=request.user, recipe=recipe).exists():
         SavedRecipe.objects.create(user=request.user, recipe=recipe)
     
-    return redirect('recipe_details', recipe_id=recipe.id)  # Redirect to the recipe details page
+    return redirect('recipe_details', recipe_id=recipe.id)  
 
-# Unbookmark a recipe
+
 @login_required
 def unbookmark_recipe(request, recipe_id):
     recipe = Recipe.objects.get(id=recipe_id)
@@ -369,7 +363,7 @@ def unbookmark_recipe(request, recipe_id):
     
     return redirect('recipe_details', recipe_id=recipe.id)
 
-# View saved recipes
+
 @login_required
 def saved_recipes(request):
     saved_recipes = SavedRecipe.objects.filter(user=request.user)
@@ -379,24 +373,24 @@ def recipe_search(request):
     search_query = request.GET.get('search', '')
 
     if search_query:
-        # Filter recipes by both recipe_name and ingredients fields
+        
         recipes = Recipe.objects.filter(
             recipe_name__icontains=search_query
         ) | Recipe.objects.filter(
             ingredients__icontains=search_query
         )
     else:
-        # Show all recipes if no search query is entered
+  
         recipes = Recipe.objects.all()
 
     return render(request, 'recipes.html', {'recipes': recipes})
 
 def liked_recipes_view(request):
     if request.user.is_authenticated:
-        # Get all liked recipes for the logged-in user
+       
         liked_recipes = Like.objects.filter(user=request.user).select_related('recipe')
 
-        # Extract the recipes from the Like instances
+       
         recipes = [like.recipe for like in liked_recipes]
 
         context = {
@@ -414,10 +408,10 @@ def delete_recipe(request, recipe_id):
             recipe.delete()
             return JsonResponse({'success': True, 'message': 'Recipe deleted successfully.'})
         except Exception as e:
-            print(f"Error deleting recipe: {e}")  # Log the error in the server console
+            print(f"Error deleting recipe: {e}") 
             return JsonResponse({'success': False, 'error': str(e)})
     else:
-        print("Invalid request method.")  # Log unexpected request methods
+        print("Invalid request method.") 
         return JsonResponse({'success': False, 'error': 'Invalid request method.'})
 
 
@@ -425,7 +419,7 @@ def update_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
     
     if request.method == 'POST':
-        # Get the data from the form
+      
         recipe_name = request.POST.get('recipeName')
         category = request.POST.get('category')
         ingredients = request.POST.get('ingredients')
@@ -433,22 +427,22 @@ def update_recipe(request, recipe_id):
         time = request.POST.get('time')
         image = request.FILES.get('image')
 
-        # Update the recipe fields
+      
         recipe.recipe_name = recipe_name
         recipe.category = category
         recipe.ingredients = ingredients
         recipe.description = description
         recipe.time = time
         if image:
-            recipe.image = image  # Update image if a new one is uploaded
+            recipe.image = image  
 
-        # Save the updated recipe
+      
         recipe.save()
 
-        # Redirect to the recipe detail page
+
         return redirect('recipe_detail', id=recipe.id)
 
-    # If the request is not POST (e.g., GET), show the update form again
+
     return render(request, 'create.html', {'recipe': recipe})
 
 def activity(request, user_id):
@@ -456,8 +450,8 @@ def activity(request, user_id):
         return redirect('noAccess')
     
     user = get_object_or_404(User, id=user_id)
-    liked_recipes = Recipe.objects.filter(user=user)  # Update if likes are stored differently
-    user_comments = Comment.objects.filter(user=user)  # Fetch comments for the selected user
+    liked_recipes = Recipe.objects.filter(user=user)  
+    user_comments = Comment.objects.filter(user=user) 
     
     context = {
         'user': user,
