@@ -18,6 +18,7 @@ from .models import Recipe, Comment
 from django.http import JsonResponse
 from .models import SavedRecipe, Recipe
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Count
 # Create your views here.
 def index(request):
   return render(request, 'index.html')
@@ -50,9 +51,14 @@ def forgotPasswordView(request):
 def resetView(request):
    return render(request, 'reset.html')
 
+# def recipeView(request):
+#     recipes = Recipe.objects.all()
+#     return render(request, 'recipes.html', {'recipes': recipes})
+
 def recipeView(request):
-    recipes = Recipe.objects.all()
+    recipes = Recipe.objects.annotate(likes_count=Count('like'))
     return render(request, 'recipes.html', {'recipes': recipes})
+
 
 from django.shortcuts import get_object_or_404
 

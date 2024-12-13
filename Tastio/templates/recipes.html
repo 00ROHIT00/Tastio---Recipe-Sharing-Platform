@@ -66,8 +66,9 @@
             <a href="{% url 'recipeDetail' recipe.id %}">
               <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe_name }}">
               <div class="recipeDetails">
-                  <h3>{{ recipe.recipe_name }}</h3> <!-- Dynamic recipe name -->
-                  <p><i class="fa-solid fa-clock"></i> {{ recipe.time }}</p> <!-- Dynamic time -->
+                  <h3>{{ recipe.recipe_name }}</h3>
+                  <p><i class="fa-solid fa-clock"></i> {{ recipe.time }}</p>
+                  <p><i class="fa-solid fa-heart"></i> {{ recipe.likes_count }}</p>
               </div>
             </a>
         </div>
