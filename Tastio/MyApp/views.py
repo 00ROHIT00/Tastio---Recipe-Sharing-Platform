@@ -30,6 +30,8 @@ def registerView(request):
   return render(request, 'register.html')
 
 def profileView(request):
+    if not request.user.is_authenticated:
+        return redirect('noAccess')    
     # Get the user's own recipes
     user_recipes = Recipe.objects.filter(user=request.user)
 
@@ -83,10 +85,17 @@ def recipe_detail(request, id):
     return render(request, 'recipeDetails.html', context)
 
 def manage_users_view(request):
+
+    if request.user.username != 'admin':
+        return redirect('noAccess')
+    
     users = User.objects.all()
     return render(request, 'manage_users.html', {'users': users})
 
 def manage_recipes_view(request):
+    if request.user.username != 'admin':
+        return redirect('noAccess')
+    
     recipes = Recipe.objects.all()
     return render(request, 'manage_recipes.html', {'recipes': recipes})
 
@@ -184,6 +193,9 @@ def forgot_password(request):
     return render(request, 'forgotPass.html')
 
 def otp_verification(request):
+    if not request.user.is_authenticated:
+        return redirect('noAccess')
+    
     if request.method == 'POST':
         otp = request.POST.get('otp')
         session_otp = str(request.session.get('otp', ''))
@@ -197,6 +209,10 @@ def otp_verification(request):
     return render(request, 'otp.html')
 
 def reset_password(request):
+
+    if not request.user.is_authenticated:
+        return redirect('noAccess')
+    
     if request.method == 'POST':
         username = request.session.get('username')  # Get username from session
         password = request.POST.get('password')
@@ -266,6 +282,10 @@ def create(request):
     return render(request, 'create.html')
 
 def adminPanel(request):
+
+    if request.user.username != 'admin':
+        return redirect('noAccess')
+    
     total_users = User.objects.count()  # Count total users
     total_recipes = Recipe.objects.count()  # Count total recipes
 
@@ -431,26 +451,10 @@ def update_recipe(request, recipe_id):
     # If the request is not POST (e.g., GET), show the update form again
     return render(request, 'create.html', {'recipe': recipe})
 
-
-# def activity(request, user_id):
-#     user = get_object_or_404(User, id=user_id)
-#     liked_recipes = Recipe.objects.filter(user=user)  # Adjust logic for "liked" if needed
-#     user_comments = [
-#         # Placeholder comments; replace with actual comment retrieval logic if implemented
-#         "Looks Super Cool",
-#         "Looks Cool",
-#         "Looks Super Cool, nevermind I lied",
-#         "Looks Ass",
-#         "Looks like shit, super shit!",
-#     ]
-#     context = {
-#         'user': user,
-#         'liked_recipes': liked_recipes,
-#         'comments': user_comments,
-#     }
-#     return render(request, 'activity.html', context)
-
 def activity(request, user_id):
+    if request.user.username != 'admin':
+        return redirect('noAccess')
+    
     user = get_object_or_404(User, id=user_id)
     liked_recipes = Recipe.objects.filter(user=user)  # Update if likes are stored differently
     user_comments = Comment.objects.filter(user=user)  # Fetch comments for the selected user
@@ -461,3 +465,7 @@ def activity(request, user_id):
         'comments': user_comments,
     }
     return render(request, 'activity.html', context)
+
+
+def noAccess(request):
+  return render(request, 'not_access.html')

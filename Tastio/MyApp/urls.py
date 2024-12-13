@@ -34,4 +34,6 @@ urlpatterns = [
     path('delete_recipe/<int:recipe_id>/', views.delete_recipe, name='delete_recipe'),
     path('update/<int:recipe_id>/', views.update_recipe, name='update'),
     path('activity/<int:user_id>/', views.activity, name='activity'),
+    path('NO_ACCESS', views.noAccess, name='noAccess'),
+
 ]
