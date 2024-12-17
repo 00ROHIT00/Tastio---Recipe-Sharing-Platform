@@ -71,13 +71,6 @@
         <a href="{% url 'loginView'%}" class="alreadyUserBtn">Already A User? Sign In here!</a>
       </div>
 
-      {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-          {{ message }}
-        </div>
-      {% endfor %}
-      {% endif %}
     </div>
     <script>
       function validateForm() {

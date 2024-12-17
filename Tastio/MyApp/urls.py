@@ -35,5 +35,5 @@ urlpatterns = [
     path('update/<int:recipe_id>/', views.update_recipe, name='update'),
     path('activity/<int:user_id>/', views.activity, name='activity'),
     path('NO_ACCESS', views.noAccess, name='noAccess'),
-
+    path('delete_comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
 ]

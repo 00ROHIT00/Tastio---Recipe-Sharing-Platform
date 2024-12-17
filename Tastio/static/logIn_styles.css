@@ -60,6 +60,7 @@
   -moz-transform: scale((105%));
   -ms-transform: scale((105%));
   -o-transform: scale((105%));
+  font-weight: 1000;
 }
 .container-fluid {
   background: var(--background-color);

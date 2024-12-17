@@ -29,13 +29,29 @@ def loginView(request):
 def registerView(request):
   return render(request, 'register.html')
 
+# def profileView(request):
+#     if not request.user.is_authenticated:
+#         return redirect('noAccess')    
+
+#     user_recipes = Recipe.objects.filter(user=request.user)
+
+#     liked_recipes = Recipe.objects.filter(like__user=request.user)
+
+#     context = {
+#         'user_recipes': user_recipes,
+#         'liked_recipes': liked_recipes,
+#     }
+    
+#     return render(request, 'profile.html', context)
+
+
 def profileView(request):
     if not request.user.is_authenticated:
         return redirect('noAccess')    
 
     user_recipes = Recipe.objects.filter(user=request.user)
 
-    liked_recipes = Recipe.objects.filter(like__user=request.user)
+    liked_recipes = Recipe.objects.filter(like__user=request.user)[:3]  # Get only the first 3 liked recipes
 
     context = {
         'user_recipes': user_recipes,
@@ -43,6 +59,7 @@ def profileView(request):
     }
     
     return render(request, 'profile.html', context)
+
 
     
 
@@ -160,6 +177,39 @@ def login_user(request):
 def generate_otp():
     return random.randint(100000, 999999)
 
+# def forgot_password(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         email = request.POST.get('email')
+
+#         try:
+#             user = User.objects.get(username=username, email=email)
+#             otp = generate_otp() 
+#             request.session['otp'] = otp  
+#             request.session['username'] = username  
+            
+#             send_mail(
+#                 'TASTIO! | Reset Password',
+#                 f'Hey {username}, \nThis is your OTP code for resetting the password: {otp}.\n Thanks for using TASTiO!',
+
+#                 settings.DEFAULT_FROM_EMAIL,
+#                 [email],
+#                 fail_silently=False,
+#             )
+            
+#             return redirect('otp_verification') 
+
+#         except User.DoesNotExist:
+#             messages.error(request, 'Invalid username or email. Please try again.')
+
+#     return render(request, 'forgotPass.html')
+
+
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
+from django.shortcuts import render, redirect
+
 def forgot_password(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -167,30 +217,37 @@ def forgot_password(request):
 
         try:
             user = User.objects.get(username=username, email=email)
-            otp = generate_otp() 
-            request.session['otp'] = otp  
-            request.session['username'] = username  
-            
-            send_mail(
-                'TASTIO! | Reset Password',
-                f'Hey {username}, \nThis is your OTP code for resetting the password: {otp}.\n Thanks for using TASTiO!',
+            otp = generate_otp()
+            request.session['otp'] = otp
+            request.session['username'] = username
 
+            subject = 'TASTIO! | Reset Password'
+            plain_message = f'Hey {username},\nThis is your OTP code for resetting the password: {otp}.\nThanks for using TASTiO!'
+            html_message = f"""
+            <p>Hey <strong>{username}</strong>,</p>
+            <p>This is your OTP code for resetting the password:</p>
+            <h2 style="font-size: 24px; color: #333;"><strong>{otp}</strong></h2>
+            <p>Thanks for using <strong>TASTiO!</strong></p>
+            """
+
+            send_mail(
+                subject,
+                plain_message,  # Plain text fallback
                 settings.DEFAULT_FROM_EMAIL,
                 [email],
                 fail_silently=False,
+                html_message=html_message  # HTML email content
             )
-            
-            return redirect('otp_verification') 
+
+            return redirect('otp_verification')
 
         except User.DoesNotExist:
             messages.error(request, 'Invalid username or email. Please try again.')
 
     return render(request, 'forgotPass.html')
 
-def otp_verification(request):
-    if not request.user.is_authenticated:
-        return redirect('noAccess')
-    
+
+def otp_verification(request):    
     if request.method == 'POST':
         otp = request.POST.get('otp')
         session_otp = str(request.session.get('otp', ''))
@@ -203,10 +260,7 @@ def otp_verification(request):
     return render(request, 'otp.html')
 
 def reset_password(request):
-
-    if not request.user.is_authenticated:
-        return redirect('noAccess')
-    
+        
     if request.method == 'POST':
         username = request.session.get('username') 
         password = request.POST.get('password')
@@ -463,3 +517,19 @@ def activity(request, user_id):
 
 def noAccess(request):
   return render(request, 'not_access.html')
+
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
+from .models import Comment
+
+def delete_comment(request, comment_id):
+    if request.user.username != 'admin':
+        return redirect('noAccess')
+    
+    comment = get_object_or_404(Comment, id=comment_id)
+    user_id = comment.user.id  # To redirect back to the activity page of the same user
+    
+    comment.delete()
+    messages.success(request, "Comment deleted successfully.")
+    return redirect('activity', user_id=user_id)

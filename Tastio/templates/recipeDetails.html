@@ -189,6 +189,27 @@
     });
   }
 }
-  </script>  
+  </script>
+  <script>
+    function toggleLike(recipeId) {
+      fetch(`/like/${recipeId}/`, { 
+        method: 'POST', 
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 'recipeId': recipeId })
+      })
+      .then(() => {
+        // Reload the page immediately after the like request is sent
+        window.location.reload();
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("An error occurred while liking the recipe.");
+      });
+    }
+  </script>
+  
 </body>
 </html>
