@@ -174,36 +174,11 @@ def login_user(request):
          messages.error(request, "Invalid Username Or Password!")
    return render(request, 'login.html')
 
+
+
+
 def generate_otp():
     return random.randint(100000, 999999)
-
-# def forgot_password(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         email = request.POST.get('email')
-
-#         try:
-#             user = User.objects.get(username=username, email=email)
-#             otp = generate_otp() 
-#             request.session['otp'] = otp  
-#             request.session['username'] = username  
-            
-#             send_mail(
-#                 'TASTIO! | Reset Password',
-#                 f'Hey {username}, \nThis is your OTP code for resetting the password: {otp}.\n Thanks for using TASTiO!',
-
-#                 settings.DEFAULT_FROM_EMAIL,
-#                 [email],
-#                 fail_silently=False,
-#             )
-            
-#             return redirect('otp_verification') 
-
-#         except User.DoesNotExist:
-#             messages.error(request, 'Invalid username or email. Please try again.')
-
-#     return render(request, 'forgotPass.html')
-
 
 from django.core.mail import send_mail
 from django.conf import settings
@@ -519,17 +494,36 @@ def noAccess(request):
   return render(request, 'not_access.html')
 
 
+# from django.shortcuts import get_object_or_404, redirect
+# from django.contrib import messages
+# from .models import Comment
+
+# def delete_comment(request, comment_id):
+#     if request.user.username != 'admin':
+#         return redirect('noAccess')
+    
+#     comment = get_object_or_404(Comment, id=comment_id)
+#     user_id = comment.user.id  # To redirect back to the activity page of the same user
+    
+#     comment.delete()
+#     messages.success(request, "Comment deleted successfully.")
+#     return redirect('activity', user_id=user_id)
+
+
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from .models import Comment
 
 def delete_comment(request, comment_id):
-    if request.user.username != 'admin':
-        return redirect('noAccess')
-    
+    # Fetch the comment object
     comment = get_object_or_404(Comment, id=comment_id)
-    user_id = comment.user.id  # To redirect back to the activity page of the same user
     
-    comment.delete()
-    messages.success(request, "Comment deleted successfully.")
-    return redirect('activity', user_id=user_id)
+    # Allow deletion if the user is an admin or the author of the comment
+    if request.user.username == 'admin' or comment.user == request.user:
+        user_id = comment.user.id  # To redirect back to the activity page of the same user
+        comment.delete()
+        messages.success(request, "Comment deleted successfully.")
+        return redirect('activity', user_id=user_id)
+    
+    # Redirect to no access page if permission is denied
+    return redirect('noAccess')

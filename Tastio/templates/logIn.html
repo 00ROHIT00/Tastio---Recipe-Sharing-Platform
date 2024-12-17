@@ -15,6 +15,7 @@
      <title>Tastio | Log In</title>
   </head>
   <body>
+
     <ul class="nav custom">
       <li class="nav-item">
         <a class="nav-link active tastio-navbar" href="{%url 'index' %}">TASTiO!</a>
@@ -48,6 +49,7 @@
     </ul>
 
     <div class="container-fluid">
+      
       <div class="signInBox">
         <h1>Log In</h1>
         <form method="post" action="" autocomplete="off">
@@ -64,8 +66,7 @@
         <a href="{% url 'registerView'%}" class="newUser">New User? Sign Up Here!</a>
       </div>
 
-<br>
-
+      <br>
 
     </div>
 
@@ -91,6 +92,13 @@
         this.classList.toggle("fa-eye");
         this.classList.toggle("fa-eye-slash");
       });
+
+      {% if messages %}
+        {% for message in messages %}
+          alert("{{ message }}");
+        {% endfor %}
+      {% endif %}
     </script>
+    
   </body>
 </html>
