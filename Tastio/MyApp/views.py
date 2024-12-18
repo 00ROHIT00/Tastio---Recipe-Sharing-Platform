@@ -494,20 +494,6 @@ def noAccess(request):
   return render(request, 'not_access.html')
 
 
-# from django.shortcuts import get_object_or_404, redirect
-# from django.contrib import messages
-# from .models import Comment
-
-# def delete_comment(request, comment_id):
-#     if request.user.username != 'admin':
-#         return redirect('noAccess')
-    
-#     comment = get_object_or_404(Comment, id=comment_id)
-#     user_id = comment.user.id  # To redirect back to the activity page of the same user
-    
-#     comment.delete()
-#     messages.success(request, "Comment deleted successfully.")
-#     return redirect('activity', user_id=user_id)
 
 
 from django.shortcuts import get_object_or_404, redirect
